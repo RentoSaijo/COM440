@@ -1,0 +1,131 @@
+% Document Setup ---------------------------------------------------------
+
+% Set document class.
+\documentclass[10pt]{article}
+
+% Set document details.
+\title{\Large\textsc{Frontiers in Computing: Company 2}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-09-06}
+
+% Load packages.
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+% Configure equations and paragraphs.
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% Configure page footer.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+% Define problem environment.
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+% Render document title.
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+% Write problem statement.
+\begin{problem}[Problem 1]
+    Summarize the company.
+\end{problem}
+
+% Introduce company history and position in semiconductor manufacturing.
+\section*{Applied Materials and the making of a chip}
+
+Before a chip can execute instructions, its transistors and electrical connections must be manufactured with extraordinary precision. Applied Materials supplies equipment and materials-engineering expertise for that work. Its systems add thin films, remove selected material, modify material properties, and inspect the resulting structures. These capabilities help semiconductor manufacturers translate chip designs into physical devices that can be produced repeatedly and economically. Applied's influence therefore reaches the processors, memory, and electronic systems built by its customers throughout the computing industry.~\cite{amat-products}
+
+The company began in 1967 as Applied Materials Technology, with Michael McNeilly among its founders, initially supplying the emerging semiconductor industry. It is now headquartered in Santa Clara, California.~\cite{amat-history,amat-annual} Its two reportable business segments are Semiconductor Systems and Applied Global Services (AGS). Semiconductor Systems provides manufacturing equipment for logic and foundry applications, dynamic random-access memory (DRAM), and NAND flash storage. AGS supports customers' installed equipment. Applied also supplies display-manufacturing technology, which is reported with its other businesses.~\cite{amat-annual}
+
+% Explain fabrication processes and applications in advanced computing.
+\section*{Building structures, connecting devices, and controlling defects}
+
+We can understand the equipment portfolio by following an illustrative stage in chip fabrication: constructing a layer of wiring above existing devices. The manufacturer first needs insulating material to separate electrical connections. Deposition equipment forms thin films on the wafer, with the process selected according to the required material and structure. Atomic layer deposition (ALD), for example, uses successive, self-limiting surface reactions to control film growth. Repeating the reaction cycles builds a layer with closely controlled thickness, including over complex three-dimensional surfaces. This ability matters when a small variation can change electrical behavior or leave part of a structure inadequately covered.~\cite{amat-processes}
+
+Next, lithography defines a pattern, and etching removes material from selected regions to create openings or trenches. Applied supplies etch equipment that must remove the intended material while preserving neighboring structures. Conducting material can then be added to create the connections. The wafer also needs a sufficiently flat surface for subsequent processing. Chemical mechanical planarization (CMP) combines chemical action and mechanical polishing to remove excess material. Applied's CMP systems monitor film thickness and adjust polishing pressure so that the process stops at the appropriate point. Deposition, patterning, removal, and polishing recur as manufacturers build additional circuit layers.~\cite{amat-processes}
+
+\begin{samepage}
+Inspection closes this manufacturing feedback loop. Particles, scratches, residues, or unintended connections can prevent a chip from operating correctly. Applied's defect-control tools examine wafers at critical process stages, including through electron-beam inspection capable of resolving very small features. The findings help engineers identify problematic process conditions and improve yield, the proportion of manufactured devices that meet requirements. Producing a successful laboratory device is only one milestone; commercial manufacturing also requires repeatable quality across many wafers. The relationship between process precision and usable output explains why inspection and measurement are integral to Applied's equipment portfolio.~\cite{amat-defects}
+\par
+\end{samepage}
+
+The same capabilities support new computing architectures. Advanced logic requires precise films around increasingly complex structures, while memory manufacturing and packaging introduce additional vertical dimensions. High-bandwidth memory (HBM), for instance, stacks DRAM dies and connects them through vertical electrical paths called through-silicon vias. In June 2026, Applied introduced equipment addressing this packaging challenge. Its Opta Quad CMP platform controls surface flatness for bonding, while Producer Avila 2 deposits dielectric films designed to reduce deformation in thin memory dies. Reliable stacking helps integrate more memory close to computation, addressing the data-transfer demands of AI workloads. These examples connect materials engineering to system performance through the physical organization of chips.~\cite{amat-packaging}
+
+% Connect equipment services, displays, research, and commercial conditions.
+\section*{Services and future development}
+
+Applied's relationship with a customer continues after an equipment installation. AGS provides services that improve equipment availability, output, and process performance as customers move from research to volume production. Its offerings include customer training and data-driven optimization using the company's Actionable Insight Accelerator, or AIx. For a fabrication plant operating continuously, diagnosing a developing process problem or improving equipment utilization can protect substantial production capacity. This continuing support also gives Applied an ongoing business around the equipment already installed in customer factories.~\cite{amat-services}
+
+Display manufacturing applies related expertise to another part of everyday computing. Applied offers chemical vapor deposition, physical vapor deposition, OLED deposition, testing, and electron-beam review technologies. These processes help manufacturers build and examine the electronic and light-emitting structures used in displays. The connection to semiconductor production is practical: both require careful control of thin films and defects, although their substrates and manufacturing requirements differ.~\cite{amat-display}
+
+Applied also invests in shared research. Its Equipment and Process Innovation and Commercialization (EPIC) Center is designed to bring equipment suppliers, chipmakers, and researchers together to accelerate the transition from experimental processes to manufacturing. Shared development is especially useful when improvements in one process require changes in several others.~\cite{amat-epic} Commercial results also depend on customers' investment cycles and access to international markets. Export restrictions affecting certain products and customers in China, alongside shifts in factory spending, can limit sales even when demand for advanced computing remains strong.~\cite{amat-annual}
+
+% Report financial snapshot with explicit measurement periods.
+\newpage
+\section*{Financials}
+
+Annual figures follow U.S. generally accepted accounting principles (GAAP) for the fiscal year ended October 26, 2025. Market calculations use the September 4, 2026 closing price; trailing EPS is estimated from annual and interim reported EPS.~\cite{amat-results,amat-quarterly,amat-price}
+
+% Calculate market capitalization from 793597443 shares and trailing EPS as 8.66 - 6.29 + 9.22.
+\begin{description}[style = unboxed, leftmargin = 0pt, labelwidth = 0pt, itemsep = 0pt, parsep = 0pt, topsep = 0.3em]
+    \item[Market capitalization:] Approximately \$360.86 billion, using closing price and reported shares below.
+    \item[Share price:] \$454.71 (Nasdaq: AMAT).~\cite{amat-price}
+    \item[Shares outstanding:] 793.60 million common shares as of July 26, 2026.~\cite{amat-quarterly}
+    \item[Annual revenue:] \$28.37 billion.~\cite{amat-results}
+    \item[Annual net income:] \$7.00 billion.~\cite{amat-results}
+    \item[Annual diluted earnings per share:] \$8.66.~\cite{amat-results}
+    \item[Price-to-earnings ratio:] 39.23, using trailing diluted EPS of \$11.59 through July 26, 2026.~\cite{amat-results,amat-quarterly}
+    \item[Employees:] Approximately 36,500 as of October 26, 2025.~\cite{amat-annual}
+    \item[CEO:] Gary Dickerson, also president.~\cite{amat-results}
+\end{description}
+
+Fiscal 2025 revenue increased 4.39\%, although net income declined from \$7.18 billion to \$7.00 billion.~\cite{amat-results} By the third quarter of fiscal 2026, quarterly revenue reached \$9.12 billion, up 24.83\% year over year, and diluted EPS reached \$3.17.~\cite{amat-quarterly} The acceleration illustrates the business opportunity created when chipmakers expand production and adopt more demanding processes. Applied's financial performance consequently reflects both how much manufacturing capacity customers purchase and how much materials-engineering work each generation of chips requires.
+
+% Identify sources with compact linked references.
+{\small
+\begin{thebibliography}{12}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \bibitem{amat-products} Applied Materials, \href{https://www.appliedmaterials.com/us/en/semiconductor/products.html}{\textit{Semiconductor products}}.
+    \bibitem{amat-history} Applied Materials, \href{https://www.appliedmaterials.com/us/en/about.html}{\textit{About}}; SEMI, \href{https://www.semi.org/en/Oral-History-Interview-Michael-McNeilly}{\textit{Oral history interview: Michael McNeilly}}.
+    \bibitem{amat-annual} Applied Materials, \href{https://www.sec.gov/Archives/edgar/data/6951/000162828025056742/amat-20251026.htm}{\textit{2025 Form 10-K}}, Items 1 and 1A.
+    \bibitem{amat-processes} Applied Materials, \href{https://www.appliedmaterials.com/us/en/semiconductor/products/create/ald.html}{\textit{Atomic layer deposition}}; \href{https://www.appliedmaterials.com/us/en/semiconductor/products/shape/etch.html}{\textit{Etch}}; \href{https://www.appliedmaterials.com/us/en/semiconductor/products/shape/cmp.html}{\textit{Chemical mechanical planarization}}.
+    \bibitem{amat-defects} Applied Materials, \href{https://www.appliedmaterials.com/us/en/semiconductor/products/analyze/defect-control.html}{\textit{Defect control}}.
+    \bibitem{amat-packaging} Applied Materials, \href{https://investor.appliedmaterials.com/news-releases/news-release-details/applied-materials-introduces-new-systems-accelerate-dram-and}{\textit{New systems for DRAM and advanced packaging}} (June 25, 2026).
+    \bibitem{amat-services} Applied Materials, \href{https://www.appliedmaterials.com/us/en/service-solutions.html}{\textit{Service solutions}}.
+    \bibitem{amat-display} Applied Materials, \href{https://www.appliedmaterials.com/us/en/display.html}{\textit{Display}}.
+    \bibitem{amat-epic} Applied Materials, \href{https://www.appliedmaterials.com/us/en/epic.html}{\textit{EPIC}}.
+    \bibitem{amat-results} Applied Materials, \href{https://ir.appliedmaterials.com/news-releases/news-release-details/applied-materials-announces-fourth-quarter-and-fiscal-year-2025/}{\textit{Fourth-quarter and fiscal 2025 results}} (November 13, 2025).
+    \bibitem{amat-quarterly} Applied Materials, \href{https://ir.appliedmaterials.com/static-files/14c1d32a-cac2-4c39-b895-f33dca70e1ef}{\textit{Form 10-Q, quarter ended July 26, 2026}}, cover and Part I.
+    \bibitem{amat-price} ChartExchange, \href{https://chartexchange.com/symbol/nasdaq-amat/historical/}{\textit{AMAT historical prices}}, September 4, 2026 close.
+\end{thebibliography}
+\par}
+
+% End document.
+\end{document}
