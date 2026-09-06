@@ -1,0 +1,125 @@
+% Document Setup ---------------------------------------------------------
+
+% Set document class.
+\documentclass[10pt]{article}
+
+% Set document details.
+\title{\Large\textsc{Frontiers in Computing: Company 1}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-09-06}
+
+% Load packages.
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+% Configure equations and paragraphs.
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% Configure page footer.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+% Define problem environment.
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+% Render document title.
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+% Write problem statement.
+\begin{problem}[Problem 1]
+    Summarize the company.
+\end{problem}
+
+% Introduce company origins and business.
+\section*{Texas Instruments and the physical world}
+
+Texas Instruments (TI) supplies the chips that allow digital systems to measure physical conditions, regulate electrical power, and control machines. A computer's usefulness depends on this connection: software needs accurate inputs, and its instructions must produce reliable physical actions. Headquartered in Dallas, Texas, TI designs, manufactures, and sells analog and embedded processing semiconductors for applications ranging from industrial equipment and cars to personal electronics and data centers. Its portfolio contains more than 80,000 products, illustrating how many specialized electronic functions must work together within modern devices.~\cite{ti-about}
+
+TI traces its roots to Geophysical Service Inc., founded in 1930, and adopted the Texas Instruments name in 1951. Its four founders were Cecil Green, Patrick Haggerty, J. Erik Jonsson, and Eugene McDermott. An important milestone followed in 1958, when TI engineer Jack Kilby demonstrated the integrated circuit, helping establish the foundation for increasingly compact electronics.~\cite{ti-about,ti-history} Today, the company's two reportable segments are Analog and Embedded Processing, with Analog generating most of its revenue. Educational calculators remain a familiar consumer product, although they account for about one percent of 2025 sales. TI also produces DLP technology, which uses microscopic mirrors to control light for projection and other applications. These activities sit within its smaller Other category.~\cite{ti-annual,ti-dlp}
+
+% Explain technologies through practical applications.
+\section*{From sensing to control and computing power}
+
+Analog chips work with continuously varying quantities such as voltage and current. Within a signal chain, an amplifier can strengthen a sensor's electrical output, while an analog-to-digital converter turns that signal into numbers a processor can interpret. Power-management chips perform another essential task: converting, distributing, and regulating electricity at the levels different components require. TI's analog portfolio therefore helps electronic systems obtain useful information and maintain suitable operating conditions.~\cite{ti-annual}
+
+Consider an electric vehicle battery pack as an illustrative application. Its many cells require individual monitoring because the pack's overall voltage does not reveal every cell's condition. TI's BQ79616-Q1 monitors up to 16 cells connected in series and supports temperature sensing, fault detection, and cell balancing. Multiple monitors can communicate through a daisy chain, extending coverage across a larger pack. Their measurements give the battery-management controller information for estimating charge and detecting abnormal conditions. Balancing helps reduce differences among cells, while temperature monitoring can pause balancing to prevent excessive heating. This example shows how a specialized chip connects physical measurements to decisions that affect an entire system.~\cite{ti-battery}
+
+Embedded processing supplies the programmable control needed to act on such information. TI's C2000 microcontrollers are designed for demanding real-time applications, including industrial drives and robotics. In an illustrative robot servo drive, a controller receives current and rotor-position measurements, calculates the necessary motor response, and adjusts the switching signals sent to the power electronics. Repeating this feedback loop quickly helps the motor follow a commanded motion as its load changes. Here, computing performance includes predictable response time and precise coordination with sensors and actuators. TI supports this work with reference designs and motor-control software, helping engineers develop complete systems around its devices.~\cite{ti-motor}
+
+Data centers extend the same connection between computation and electricity. Power converters must supply processors efficiently as their electrical demands change; conversion losses also add heat that cooling systems must remove. TI develops power-management, sensing, isolation, and protection technologies for this environment. Its work with NVIDIA on an 800-volt direct-current distribution ecosystem addresses the increasing power requirements of AI computing. At a given power level, higher distribution voltage reduces current and associated resistive losses in the conductors. Further conversion stages then deliver the lower voltages needed near processors. We can therefore see why advances in power electronics contribute to the amount of computing a rack can support.~\cite{ti-power}
+
+% Connect manufacturing investment and market development.
+\section*{Manufacturing and business direction}
+
+TI's manufacturing strategy gives it substantial control over how its products are made. It operates wafer fabrication and assembly/test facilities while also using selected external suppliers. A central investment is production on 300-millimeter wafers, where the measurement describes wafer diameter. The larger surface accommodates more chips, and TI estimates that an unpackaged chip made on a 300-millimeter wafer costs about two-fifths less than one made on a 200-millimeter wafer.~\cite{ti-quarterly} Its first Sherman, Texas, fab began production in December 2025, adding capacity intended to serve customers over many years.~\cite{ti-sherman}
+
+These investments connect manufacturing economics to TI's broad customer base. Industrial and automotive applications together represented roughly two-thirds of 2025 revenue. However, semiconductor demand moves through cycles of inventory accumulation and depletion, while factories require large investments well before all their capacity is needed.~\cite{ti-annual} A further development is TI's February 2026 agreement to acquire Silicon Labs for approximately \$7.50 billion in enterprise value. The proposed acquisition would broaden its embedded wireless connectivity capabilities, with closing expected in the first half of 2027, subject to required approvals and other conditions. Connecting more devices creates demand for the sensing, processing, and communications functions that such a combination could supply.~\cite{ti-acquisition}
+
+% Report financial snapshot with explicit measurement periods.
+\newpage
+\section*{Financials}
+
+Annual figures below follow U.S. generally accepted accounting principles (GAAP) for the year ended December 31, 2025. Market calculations use the September 4, 2026 closing price.~\cite{ti-annual,ti-price}
+
+% Calculate market capitalization from 913247686 shares and trailing EPS as 5.45 - 2.69 + 3.82.
+\begin{description}[style = unboxed, leftmargin = 0pt, labelwidth = 0pt, itemsep = 0pt, parsep = 0pt, topsep = 0.3em]
+    \item[Market capitalization:] Approximately \$236.02 billion, using closing price and reported shares below.
+    \item[Share price:] \$258.44 (Nasdaq: TXN).~\cite{ti-price}
+    \item[Shares outstanding:] 913.25 million common shares as of July 15, 2026.~\cite{ti-quarterly}
+    \item[Annual revenue:] \$17.68 billion.~\cite{ti-annual}
+    \item[Annual net income:] \$5.00 billion.~\cite{ti-annual}
+    \item[Annual diluted earnings per share:] \$5.45.~\cite{ti-annual}
+    \item[Price-to-earnings ratio:] 39.28, using trailing diluted EPS of \$6.58 through June 30, 2026.~\cite{ti-annual,ti-quarterly}
+    \item[Employees:] Approximately 33,000 as of December 31, 2025.~\cite{ti-annual}
+    \item[CEO:] Haviv Ilan, also chairman and president.~\cite{ti-acquisition}
+\end{description}
+
+Revenue increased 13.05\% in 2025, while TI invested \$4.55 billion in capital expenditures.~\cite{ti-annual} Growth continued in the second quarter of 2026: revenue reached \$5.46 billion, up 22.82\% from the corresponding quarter, and diluted EPS reached \$2.14.~\cite{ti-quarterly} These results show how stronger demand can improve returns on TI's manufacturing base. Sustaining those returns depends on matching capacity, product development, and customer needs across successive semiconductor cycles.
+
+% Identify sources with compact linked references.
+{\small
+\begin{thebibliography}{12}
+    \setlength{\itemsep}{0pt}
+    \setlength{\parskip}{0pt}
+    \bibitem{ti-about} Texas Instruments, \href{https://www.ti.com/about-ti.html}{\textit{About TI}}.
+    \bibitem{ti-history} Texas Instruments, \href{https://investor.ti.com/resources/frequently-asked-questions}{\textit{Frequently asked questions}}; \href{https://texasinsturments.mediaroom.com/2012-04-16-Texas-Instruments-names-2012-TI-Founders-Community-Service-Award-winners}{\textit{Founders Community Service Award}} (2012).
+    \bibitem{ti-annual} Texas Instruments, \href{https://investor.ti.com/node/37926/html}{\textit{2025 Form 10-K}}, Items 1 and 7--8.
+    \bibitem{ti-dlp} Texas Instruments, \href{https://www.ti.com/product-category/dlp-products/display-projection-dmds/overview.html}{\textit{Display and projection digital micromirror devices}}.
+    \bibitem{ti-battery} Texas Instruments, \href{https://www.ti.com/product/BQ79616-Q1}{\textit{BQ79616-Q1 product documentation}}.
+    \bibitem{ti-motor} Texas Instruments, \href{https://www.ti.com/technologies/motor-control.html}{\textit{Motor control}}.
+    \bibitem{ti-power} Texas Instruments, \href{https://www.ti.com/document-viewer/lit/html/SSZTD83B/GUID-8BCFEEFA-7609-4C92-B924-7B012C230FC8}{\textit{AI data-center power delivery}}, SSZTD83B (May 2026).
+    \bibitem{ti-quarterly} Texas Instruments, \href{https://investor.ti.com/node/38486/html}{\textit{Form 10-Q, quarter ended June 30, 2026}}, cover and Part I.
+    \bibitem{ti-sherman} Texas Instruments, \href{https://www.ti.com/about-ti/manufacturing/sherman.html}{\textit{Sherman, Texas: 300mm wafer fabs}}.
+    \bibitem{ti-acquisition} Texas Instruments, \href{https://www.ti.com/about-ti/newsroom/news-releases/2026/2026-02-04-texas-instruments-to-acquire-silicon-labs.html}{\textit{Texas Instruments to acquire Silicon Labs}} (February 4, 2026).
+    \bibitem{ti-price} ChartExchange, \href{https://chartexchange.com/symbol/nasdaq-txn/historical/}{\textit{TXN historical prices}}, September 4, 2026 close.
+\end{thebibliography}
+\par}
+
+% End document.
+\end{document}
