@@ -1,0 +1,90 @@
+% Document Setup ---------------------------------------------------------
+
+% Set document class.
+\documentclass[10pt]{article}
+
+% Set document details.
+\title{\Large\textsc{Frontiers in Computing: Discussion 2}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-09-08}
+
+% Load packages.
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+% Configure equations and paragraphs.
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% Configure page footer.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+% Define problem environment.
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+% Render document title.
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+% Explain Internet structure and packet delivery.
+\section*{Internet structure and packet delivery}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item The Internet connects independently operated networks into a system through which applications exchange information. At its edge, hosts such as computers, phones, and servers run those applications; communication links and packet switches carry their data. Access networks connect through regional and backbone networks, direct peering, and Internet exchange points, while content providers also operate networks that bring services closer to users. This infrastructure provides an information-delivery service governed by protocols: rules specifying message formats, their order, and the actions taken when messages are sent or received.
+
+    \item An access network connects a host to its first-hop router toward the wider Internet. Residential connections include cable and DSL, institutions combine wired Ethernet and Wi-Fi, and cellular networks support mobile access. Their performance depends on transmission capacity and how that capacity is shared. Cable users may share local capacity with neighbors, while DSL provides a dedicated telephone-line connection to the central office. Underneath these networks, copper cables carry electrical signals, fiber carries light, and wireless links carry radio signals. Wireless communication adds challenges involving interference, obstructions, signal fading, and potential eavesdropping.
+
+    \item Hosts divide application data into packets, adding headers that help network devices handle them. Within the core, \textit{forwarding} is a local operation: a router examines a packet and uses its forwarding table to select an output link. \textit{Routing} determines the paths that packets take and supplies the information needed for those tables. Kurose's driving analogy separates the two clearly. Choosing a route for a cross-country trip corresponds to routing; choosing the appropriate outgoing road at an individual interchange corresponds to forwarding. Together, these functions move packets from source to destination.
+
+    \item Packet switching shares link capacity among traffic as it arrives, making it useful for bursty applications whose users are not continuously transmitting. Circuit switching reserves capacity for a connection, using frequency bands or recurring time slots. Reservation provides predictable capacity, but that capacity remains unavailable to other connections when its assigned user is idle. Packet switching gains efficiency through statistical multiplexing, allowing users to share resources according to activity. The tradeoff is that competing packets can encounter congestion, delay, and loss when demand exceeds available capacity.
+\end{itemize}
+
+% Connect network delay, loss, and throughput.
+\section*{Network performance}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item In store-and-forward operation, a router receives a complete packet before forwarding it onward. Its journey involves four delay components: processing checks and forwarding decisions, queuing while awaiting service, transmission onto a link, and propagation through the medium. For a packet of \(L\) bits and a transmission rate of \(R\) bits per second, transmission takes \(L/R\) seconds. Propagation instead depends on distance and signal speed. In the tollbooth analogy, releasing all cars in a caravan onto the road represents transmission; their travel to the next booth represents propagation. Increasing transmission capacity does not eliminate travel time.
+
+    \item Queues develop when packets arrive faster than an outgoing link can transmit them. As average demand approaches capacity, queuing delays can rise sharply; finite buffers can fill, causing arriving packets to be dropped. Traceroute helps investigate performance by probing routers along a path and measuring round-trip times. These measurements include the return journey and can vary as congestion changes, so successive values need not increase steadily. A missing reply leaves a measurement unavailable and does not, by itself, demonstrate that the route cannot carry traffic.
+
+    \item Throughput measures the rate at which data reaches a receiver over a specified interval. The bottleneck link limits the achievable rate along a path: in a simple two-link example, throughput is limited by \(\min(R_1,R_2)\), where the two quantities are link transmission rates. Shared traffic also matters. If \(N\) flows divide a link of capacity \(R\) equally, each receives a share of \(R/N\), which may become its bottleneck. Consequently, a fast individual connection does not establish the performance of an entire route; both the links encountered and their competing workloads matter.
+\end{itemize}
+
+% Explain protocol layers and network security.
+\section*{Layers and security}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item The five-layer Internet model organizes this complexity into services. The application layer supports communication among application components; the transport layer delivers data between processes; and the network layer provides delivery between hosts. The link layer moves data between neighboring devices, while the physical layer transmits bits through the medium. Each layer uses services below it to provide services above it. This modular structure lets implementations change while preserving the interfaces other layers depend on, helping us understand and maintain a system containing many different technologies.
+
+    \item Encapsulation connects these layers during transmission. An application message gains transport information to form a segment, network information to form a datagram, and link information to form a frame. The receiver interprets and removes the corresponding information as data moves upward. Routers and switches primarily perform forwarding through lower-layer functions. Service boundaries also explain reliability: Internet Protocol provides best-effort host-to-host delivery without guaranteeing successful arrival, while TCP implements reliable process-to-process transfer above that service. Reliability therefore depends on mechanisms at the appropriate layer, even when underlying packets can be lost.
+
+    \item Security must accompany these mechanisms because the original architecture assumed a more trusting community. Attackers may sniff traffic, inject packets with spoofed identities, or overwhelm services; distributed denial-of-service attacks coordinate traffic from multiple machines. Authentication helps establish identity, encryption protects content from disclosure, and digital signatures help verify origin and detect tampering. Access controls specify permitted actions, while firewalls filter traffic and help limit exposure. These defenses address different threats, connecting secure communication to the same questions of message handling, resource use, and service boundaries that organize the network itself.
+\end{itemize}
+
+% End document.
+\end{document}
