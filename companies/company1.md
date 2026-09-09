@@ -8,20 +8,20 @@ TI has two main business segments: Analog and Embedded Processing. Analog chips 
 
 ## Analog and power management
 
-- **Signal-chain chips:** Imagine a sensor producing a small electrical signal. An amplifier strengthens it, and an analog-to-digital converter turns it into numbers a processor can use. TI supplies both types of chips.
-- **Battery monitors:** An electric car's battery pack contains many individual cells. TI's BQ79616-Q1 can monitor up to 16 cells connected in series and supports temperature sensing and cell balancing. That gives the battery controller information it needs to detect problems and manage the pack.
-- **Power-management chips:** A server processor needs a carefully regulated power supply, even as its workload changes. TI's chips help convert and regulate that electricity. Better efficiency also means less energy becomes heat that the cooling system has to remove.
+- **Signal-chain chips:** TI makes amplifiers that strengthen sensor signals and analog-to-digital converters that turn those signals into numbers a processor can use.
+- **Battery monitors:** TI's BQ79616-Q1 monitors up to 16 battery cells connected in series. It also supports temperature sensing and cell balancing, helping a battery controller manage an electric vehicle's battery pack.
+- **Power-management chips:** These chips convert and regulate electricity for electronic components. In servers, they help maintain the voltage processors need as power demand changes.
 
 ## Embedded processing and familiar products
 
-- **C2000 microcontrollers:** Think of a robot arm moving while carrying a changing load. A controller can read the motor's current and position, calculate an adjustment, and change the signals driving the motor. TI's C2000 family is designed for this kind of rapid feedback and control.
-- **Educational calculators:** TI makes calculators used in mathematics and science classes. They are a familiar part of its product lineup, although they account for only about one percent of its 2025 sales.
-- **DLP technology:** TI also makes chips containing microscopic mirrors that control light. In a projector, those mirrors help form the image we see on the screen.
+- **C2000 microcontrollers:** These processors are designed for tasks such as controlling motors in industrial robots. They can use sensor readings to adjust a motor's speed and position.
+- **Educational calculators:** TI makes calculators used in mathematics and science classes. They accounted for about one percent of its 2025 sales.
+- **DLP technology:** DLP chips use microscopic mirrors to direct light and form images in projectors.
 
 ## Manufacturing and AI computing
 
-- **300-millimeter wafer factories:** TI manufactures many of its own chips. Larger wafers fit more chips, which can lower manufacturing cost per chip. This matters when the company supplies components used across cars, factories, and consumer electronics.
-- **AI data-center power:** TI is working with NVIDIA on an 800-volt direct-current power architecture. Distributing the same amount of power at a higher voltage reduces current and losses in the wiring. Additional converters bring the voltage down to what the processors need.
+- **300-millimeter wafer factories:** TI manufactures many of its own chips. Its larger, 300-millimeter wafers hold more chips than smaller wafers, helping reduce the cost per chip.
+- **AI data-center power:** TI is working with NVIDIA on an 800-volt direct-current power system. At the same power level, higher voltage reduces current and losses in the wiring. Converters then lower the voltage to what processors need.
 
 ## Financials
 
@@ -36,6 +36,10 @@ To give a sense of TI's size, these annual figures use GAAP results for the fisc
 - **Price-to-earnings ratio:** 39.28 times trailing earnings, using diluted EPS of $6.58 for the twelve months through June 30, 2026.
 - **Employees:** Approximately 33,000 as of December 31, 2025.
 - **CEO:** Haviv Ilan, who is also chairman and president.
+
+## Conclusion
+
+TI supplies many of the components that make electronic systems work. Its chips support power management, sensing, and control across consumer products, vehicles, and industrial equipment.
 
 Sources: [Company summary and references][summary]; [2025 annual report][annual]; [2026 second-quarter report][quarterly]; [share price history][price].
 
