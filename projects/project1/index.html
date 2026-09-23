@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Movie scene carousel</title>
+  <link rel='stylesheet' href='styles.css'>
+</head>
+<body>
+  <header class='site-header'>
+    <div class='header-inner'>
+      <p class='site-title'>Movie scene carousel</p>
+      <div class='movie-picker'>
+        <label for='movie-select'>Choose a movie</label>
+        <select id='movie-select' name='movie'>
+          <option value='ready-player-one' selected>Ready Player One</option>
+          <option value='the-social-network'>The Social Network</option>
+          <option value='top-gun-maverick'>Top Gun: Maverick</option>
+          <option value='inside-out'>Inside Out</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class='page'>
+    <section class='movie' id='ready-player-one' aria-labelledby='ready-player-one-title'>
+      <input class='scene-radio scene-one' type='radio' name='ready-scene' id='ready-scene-1' aria-label='Scene 1' checked>
+      <input class='scene-radio scene-two' type='radio' name='ready-scene' id='ready-scene-2' aria-label='Scene 2'>
+      <input class='scene-radio scene-three' type='radio' name='ready-scene' id='ready-scene-3' aria-label='Scene 3'>
+
+      <div class='movie-intro'>
+        <p class='eyebrow'>Now viewing</p>
+        <h1 id='ready-player-one-title'>Ready Player One</h1>
+        <p>Wade's search takes him from the Stacks into the limitless OASIS.</p>
+      </div>
+
+      <div class='carousel'>
+        <figure class='slide slide-one'>
+          <div class='image-frame'>
+            <img src='images/ready-player-one-1.jpg' width='1280' height='720' alt='Wade sits in his crowded hideout in the Stacks'>
+            <div class='image-controls'>
+              <label for='ready-scene-3' aria-label='Previous scene'>‹</label>
+              <label for='ready-scene-2' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 1 of 3</span>
+            <h2>Life in the Stacks</h2>
+            <p>Wade looks out from the cramped space he has made his own.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-two'>
+          <div class='image-frame'>
+            <img src='images/ready-player-one-2.jpg' width='1280' height='720' alt='A giant gorilla towers behind a DeLorean in the OASIS' loading='lazy'>
+            <div class='image-controls'>
+              <label for='ready-scene-1' aria-label='Previous scene'>‹</label>
+              <label for='ready-scene-3' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 2 of 3</span>
+            <h2>The OASIS race</h2>
+            <p>A giant gorilla looms over the DeLorean as the race turns chaotic.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-three'>
+          <div class='image-frame'>
+            <img src='images/ready-player-one-3.jpg' width='1280' height='720' alt='Parzival studies a glowing map of the OASIS' loading='lazy'>
+            <div class='image-controls'>
+              <label for='ready-scene-2' aria-label='Previous scene'>‹</label>
+              <label for='ready-scene-1' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 3 of 3</span>
+            <h2>A world to explore</h2>
+            <p>Parzival studies a glowing map that stretches across the OASIS.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class='scene-picker'>
+        <label for='ready-scene-1'>1</label>
+        <label for='ready-scene-2'>2</label>
+        <label for='ready-scene-3'>3</label>
+      </div>
+    </section>
+
+    <section class='movie' id='the-social-network' aria-labelledby='the-social-network-title'>
+      <input class='scene-radio scene-one' type='radio' name='social-scene' id='social-scene-1' aria-label='Scene 1' checked>
+      <input class='scene-radio scene-two' type='radio' name='social-scene' id='social-scene-2' aria-label='Scene 2'>
+      <input class='scene-radio scene-three' type='radio' name='social-scene' id='social-scene-3' aria-label='Scene 3'>
+
+      <div class='movie-intro'>
+        <p class='eyebrow'>Now viewing</p>
+        <h1 id='the-social-network-title'>The Social Network</h1>
+        <p>A college project grows quickly, and so do the tensions around it.</p>
+      </div>
+
+      <div class='carousel'>
+        <figure class='slide slide-one'>
+          <div class='image-frame'>
+            <img src='images/the-social-network-1.jpg' width='1280' height='720' alt='Eduardo and Mark stand together on campus' loading='lazy'>
+            <div class='image-controls'>
+              <label for='social-scene-3' aria-label='Previous scene'>‹</label>
+              <label for='social-scene-2' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 1 of 3</span>
+            <h2>Early days</h2>
+            <p>Eduardo and Mark stand together before their partnership is tested.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-two'>
+          <div class='image-frame'>
+            <img src='images/the-social-network-2.jpg' width='1280' height='720' alt='Four students gather around a computer screen' loading='lazy'>
+            <div class='image-controls'>
+              <label for='social-scene-1' aria-label='Previous scene'>‹</label>
+              <label for='social-scene-3' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 2 of 3</span>
+            <h2>Building the site</h2>
+            <p>The group crowds around a screen as the new platform takes shape.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-three'>
+          <div class='image-frame'>
+            <img src='images/the-social-network-3.jpg' width='1280' height='720' alt='Eduardo looks toward Mark across a meeting room' loading='lazy'>
+            <div class='image-controls'>
+              <label for='social-scene-2' aria-label='Previous scene'>‹</label>
+              <label for='social-scene-1' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 3 of 3</span>
+            <h2>Questions remain</h2>
+            <p>Eduardo turns toward Mark as their conflict comes into focus.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class='scene-picker'>
+        <label for='social-scene-1'>1</label>
+        <label for='social-scene-2'>2</label>
+        <label for='social-scene-3'>3</label>
+      </div>
+    </section>
+
+    <section class='movie' id='top-gun-maverick' aria-labelledby='top-gun-maverick-title'>
+      <input class='scene-radio scene-one' type='radio' name='maverick-scene' id='maverick-scene-1' aria-label='Scene 1' checked>
+      <input class='scene-radio scene-two' type='radio' name='maverick-scene' id='maverick-scene-2' aria-label='Scene 2'>
+      <input class='scene-radio scene-three' type='radio' name='maverick-scene' id='maverick-scene-3' aria-label='Scene 3'>
+
+      <div class='movie-intro'>
+        <p class='eyebrow'>Now viewing</p>
+        <h1 id='top-gun-maverick-title'>Top Gun: Maverick</h1>
+        <p>Maverick returns to the sky for a mission that demands everything.</p>
+      </div>
+
+      <div class='carousel'>
+        <figure class='slide slide-one'>
+          <div class='image-frame'>
+            <img src='images/top-gun-maverick-1.jpg' width='1280' height='720' alt='Maverick leans against an aircraft beneath a blue sky' loading='lazy'>
+            <div class='image-controls'>
+              <label for='maverick-scene-3' aria-label='Previous scene'>‹</label>
+              <label for='maverick-scene-2' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 1 of 3</span>
+            <h2>Back on the flight line</h2>
+            <p>Maverick pauses beside an aircraft and watches the sky.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-two'>
+          <div class='image-frame'>
+            <img src='images/top-gun-maverick-2.jpg' width='1280' height='720' alt='Maverick flies alongside other fighter jets' loading='lazy'>
+            <div class='image-controls'>
+              <label for='maverick-scene-1' aria-label='Previous scene'>‹</label>
+              <label for='maverick-scene-3' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 2 of 3</span>
+            <h2>In formation</h2>
+            <p>Maverick scans the aircraft flying beside him from his cockpit.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-three'>
+          <div class='image-frame'>
+            <img src='images/top-gun-maverick-3.jpg' width='1280' height='720' alt='A fighter jet rolls along a runway at sunset' loading='lazy'>
+            <div class='image-controls'>
+              <label for='maverick-scene-2' aria-label='Previous scene'>‹</label>
+              <label for='maverick-scene-1' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 3 of 3</span>
+            <h2>Into the evening</h2>
+            <p>A fighter jet rolls down the runway against the last light of day.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class='scene-picker'>
+        <label for='maverick-scene-1'>1</label>
+        <label for='maverick-scene-2'>2</label>
+        <label for='maverick-scene-3'>3</label>
+      </div>
+    </section>
+
+    <section class='movie' id='inside-out' aria-labelledby='inside-out-title'>
+      <input class='scene-radio scene-one' type='radio' name='inside-out-scene' id='inside-out-scene-1' aria-label='Scene 1' checked>
+      <input class='scene-radio scene-two' type='radio' name='inside-out-scene' id='inside-out-scene-2' aria-label='Scene 2'>
+      <input class='scene-radio scene-three' type='radio' name='inside-out-scene' id='inside-out-scene-3' aria-label='Scene 3'>
+
+      <div class='movie-intro'>
+        <p class='eyebrow'>Now viewing</p>
+        <h1 id='inside-out-title'>Inside Out</h1>
+        <p>Riley's move feels different from the inside, where her emotions lead the way.</p>
+      </div>
+
+      <div class='carousel'>
+        <figure class='slide slide-one'>
+          <div class='image-frame'>
+            <img src='images/inside-out-1.jpg' width='1280' height='720' alt='Riley eats dinner with her parents in their new home' loading='lazy'>
+            <div class='image-controls'>
+              <label for='inside-out-scene-3' aria-label='Previous scene'>‹</label>
+              <label for='inside-out-scene-2' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 1 of 3</span>
+            <h2>A new home</h2>
+            <p>Riley shares dinner with her parents after their move.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-two'>
+          <div class='image-frame'>
+            <img src='images/inside-out-2.jpg' width='1280' height='720' alt='Joy shows Sadness a glowing memory orb' loading='lazy'>
+            <div class='image-controls'>
+              <label for='inside-out-scene-1' aria-label='Previous scene'>‹</label>
+              <label for='inside-out-scene-3' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 2 of 3</span>
+            <h2>A shared memory</h2>
+            <p>Joy shows Sadness a glowing memory from Riley's life.</p>
+          </figcaption>
+        </figure>
+        <figure class='slide slide-three'>
+          <div class='image-frame'>
+            <img src='images/inside-out-3.jpg' width='1280' height='720' alt='Joy leaps across a pretend lava floor while Sadness stays on a chair' loading='lazy'>
+            <div class='image-controls'>
+              <label for='inside-out-scene-2' aria-label='Previous scene'>‹</label>
+              <label for='inside-out-scene-1' aria-label='Next scene'>›</label>
+            </div>
+          </div>
+          <figcaption>
+            <span class='scene-count'>Scene 3 of 3</span>
+            <h2>The floor is lava</h2>
+            <p>Joy leaps ahead while Sadness picks her way through Riley's imagination.</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class='scene-picker'>
+        <label for='inside-out-scene-1'>1</label>
+        <label for='inside-out-scene-2'>2</label>
+        <label for='inside-out-scene-3'>3</label>
+      </div>
+    </section>
+  </main>
+
+  <footer class='site-footer'>
+    <p>Film images via <a href='https://www.themoviedb.org/' target='_blank' rel='noopener noreferrer'>TMDb</a>.</p>
+  </footer>
+</body>
+</html>

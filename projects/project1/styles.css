@@ -1,0 +1,281 @@
+/* Base styles ----------------------------------------------------------- */
+
+:root {
+  color-scheme: dark;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: #10151f;
+  color: #f5f7fb;
+}
+
+/* Header ---------------------------------------------------------------- */
+
+.site-header {
+  border-bottom: 1px solid #293244;
+  background: #151b27;
+}
+
+.header-inner {
+  width: min(100%, 1000px);
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.movie-picker {
+  display: grid;
+  gap: 5px;
+  min-width: 230px;
+}
+
+.movie-picker label,
+.eyebrow,
+.scene-count {
+  color: #aebbd0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.movie-picker select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #3c4960;
+  border-radius: 6px;
+  background: #222c3e;
+  color: #f5f7fb;
+  font: inherit;
+  cursor: pointer;
+}
+
+.movie-picker select:focus-visible {
+  outline: 2px solid #a9c1f5;
+  outline-offset: 3px;
+}
+
+/* Movie selection ------------------------------------------------------- */
+
+.page {
+  width: min(100%, 900px);
+  margin: 0 auto;
+  padding: 44px 24px 18px;
+}
+
+.movie {
+  display: none;
+}
+
+#ready-player-one {
+  display: block;
+}
+
+body:has(#movie-select option:not([value='ready-player-one']):checked) #ready-player-one {
+  display: none;
+}
+
+body:has(#movie-select option[value='the-social-network']:checked) #the-social-network,
+body:has(#movie-select option[value='top-gun-maverick']:checked) #top-gun-maverick,
+body:has(#movie-select option[value='inside-out']:checked) #inside-out {
+  display: block;
+}
+
+.movie-intro {
+  margin-bottom: 22px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+}
+
+.movie-intro h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.1;
+}
+
+.movie-intro > p:last-child {
+  margin: 10px 0 0;
+  color: #b8c3d5;
+  line-height: 1.5;
+}
+
+/* Carousel -------------------------------------------------------------- */
+
+.scene-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.slide {
+  display: none;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid #303a4d;
+  border-radius: 10px;
+  background: #1b2434;
+}
+
+.scene-one:checked ~ .carousel .slide-one,
+.scene-two:checked ~ .carousel .slide-two,
+.scene-three:checked ~ .carousel .slide-three {
+  display: block;
+}
+
+.image-frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: #05070a;
+}
+
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-controls {
+  position: absolute;
+  inset: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.image-controls label {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #ffffff66;
+  border-radius: 50%;
+  background: #111827cc;
+  color: white;
+  font-size: 1.7rem;
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.image-controls label:hover {
+  background: #34435f;
+}
+
+figcaption {
+  min-height: 112px;
+  padding: 16px 20px 18px;
+}
+
+figcaption h2 {
+  margin: 5px 0 4px;
+  font-size: 1rem;
+}
+
+figcaption p {
+  margin: 0;
+  color: #c3ccda;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.scene-picker {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.scene-picker label {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #3b485e;
+  border-radius: 50%;
+  background: #232d3f;
+  color: #dce5f4;
+  font-size: 0.78rem;
+  cursor: pointer;
+}
+
+.scene-one:checked ~ .scene-picker label:nth-child(1),
+.scene-two:checked ~ .scene-picker label:nth-child(2),
+.scene-three:checked ~ .scene-picker label:nth-child(3) {
+  border-color: #a8bee8;
+  background: #5c76a6;
+  color: white;
+}
+
+.scene-one:focus-visible ~ .scene-picker label:nth-child(1),
+.scene-two:focus-visible ~ .scene-picker label:nth-child(2),
+.scene-three:focus-visible ~ .scene-picker label:nth-child(3) {
+  outline: 2px solid #c9d9f6;
+  outline-offset: 3px;
+}
+
+/* Footer ---------------------------------------------------------------- */
+
+.site-footer {
+  padding: 18px 24px 30px;
+  color: #8d9bb0;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: #b9cbeb;
+}
+
+/* Small screens --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .header-inner {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .page {
+    padding: 32px 16px 12px;
+  }
+
+  .image-controls {
+    inset: 0 8px;
+  }
+
+  .image-controls label {
+    width: 36px;
+    height: 36px;
+  }
+
+  figcaption {
+    min-height: 128px;
+    padding: 14px 16px 16px;
+  }
+}
