@@ -16,6 +16,16 @@ body {
   color: #f5f7fb;
 }
 
+.movie-picker label,
+.scene-radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 /* Header ---------------------------------------------------------------- */
 
 .site-header {
@@ -24,9 +34,9 @@ body {
 }
 
 .header-inner {
-  width: min(100%, 1000px);
+  width: min(100%, 900px);
   margin: 0 auto;
-  padding: 18px 24px;
+  padding: 20px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,15 +47,14 @@ body {
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 .movie-picker {
-  display: grid;
-  gap: 5px;
-  min-width: 230px;
+  position: relative;
+  flex: 0 0 248px;
 }
 
-.movie-picker label,
 .eyebrow,
 .scene-count {
   color: #aebbd0;
@@ -56,14 +65,35 @@ body {
 }
 
 .movie-picker select {
+  appearance: none;
   width: 100%;
-  padding: 9px 12px;
-  border: 1px solid #3c4960;
-  border-radius: 6px;
-  background: #222c3e;
+  min-height: 44px;
+  padding: 11px 42px 11px 14px;
+  border: 1px solid #303a4d;
+  border-radius: 8px;
+  background: #1b2434;
   color: #f5f7fb;
   font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.35;
   cursor: pointer;
+}
+
+.movie-picker::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 17px;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid #aebbd0;
+  border-bottom: 2px solid #aebbd0;
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.movie-picker select:hover {
+  border-color: #7184a4;
 }
 
 .movie-picker select:focus-visible {
@@ -118,14 +148,6 @@ body:has(#movie-select option[value='inside-out']:checked) #inside-out {
 }
 
 /* Carousel -------------------------------------------------------------- */
-
-.scene-radio {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-}
 
 .slide {
   display: none;
@@ -256,9 +278,15 @@ figcaption p {
 
 @media (max-width: 600px) {
   .header-inner {
+    padding: 18px 16px;
     align-items: stretch;
     flex-direction: column;
     gap: 14px;
+  }
+
+  .movie-picker {
+    flex-basis: auto;
+    width: 100%;
   }
 
   .page {
