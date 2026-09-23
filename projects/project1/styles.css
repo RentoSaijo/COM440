@@ -16,14 +16,14 @@ body {
   color: #f5f7fb;
 }
 
-.movie-picker label,
-.scene-radio {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
+a {
+  color: #b9cbeb;
+}
+
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #a9c1f5;
+  outline-offset: 3px;
 }
 
 /* Header ---------------------------------------------------------------- */
@@ -64,8 +64,9 @@ body {
   text-transform: uppercase;
 }
 
-.movie-picker select {
-  appearance: none;
+.movie-picker summary {
+  position: relative;
+  list-style: none;
   width: 100%;
   min-height: 44px;
   padding: 11px 42px 11px 14px;
@@ -79,7 +80,11 @@ body {
   cursor: pointer;
 }
 
-.movie-picker::after {
+.movie-picker summary::-webkit-details-marker {
+  display: none;
+}
+
+.movie-picker summary::after {
   content: '';
   position: absolute;
   top: 50%;
@@ -92,39 +97,43 @@ body {
   pointer-events: none;
 }
 
-.movie-picker select:hover {
+.movie-picker summary:hover {
   border-color: #7184a4;
 }
 
-.movie-picker select:focus-visible {
-  outline: 2px solid #a9c1f5;
-  outline-offset: 3px;
+.movie-picker nav {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #303a4d;
+  border-radius: 8px;
+  background: #1b2434;
 }
 
-/* Movie selection ------------------------------------------------------- */
+.movie-picker a {
+  display: block;
+  padding: 10px 9px;
+  border-radius: 4px;
+  color: #f5f7fb;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.movie-picker a:hover,
+.movie-picker a[aria-current='true'] {
+  background: #34435f;
+}
+
+/* Movie ----------------------------------------------------------------- */
 
 .page {
   width: min(100%, 900px);
   margin: 0 auto;
   padding: 44px 24px 18px;
-}
-
-.movie {
-  display: none;
-}
-
-#ready-player-one {
-  display: block;
-}
-
-body:has(#movie-select option:not([value='ready-player-one']):checked) #ready-player-one {
-  display: none;
-}
-
-body:has(#movie-select option[value='the-social-network']:checked) #the-social-network,
-body:has(#movie-select option[value='top-gun-maverick']:checked) #top-gun-maverick,
-body:has(#movie-select option[value='inside-out']:checked) #inside-out {
-  display: block;
 }
 
 .movie-intro {
@@ -150,18 +159,11 @@ body:has(#movie-select option[value='inside-out']:checked) #inside-out {
 /* Carousel -------------------------------------------------------------- */
 
 .slide {
-  display: none;
   margin: 0;
   overflow: hidden;
   border: 1px solid #303a4d;
   border-radius: 10px;
   background: #1b2434;
-}
-
-.scene-one:checked ~ .carousel .slide-one,
-.scene-two:checked ~ .carousel .slide-two,
-.scene-three:checked ~ .carousel .slide-three {
-  display: block;
 }
 
 .image-frame {
@@ -186,7 +188,7 @@ body:has(#movie-select option[value='inside-out']:checked) #inside-out {
   pointer-events: none;
 }
 
-.image-controls label {
+.image-controls a {
   display: grid;
   place-items: center;
   width: 42px;
@@ -197,11 +199,11 @@ body:has(#movie-select option[value='inside-out']:checked) #inside-out {
   color: white;
   font-size: 1.7rem;
   line-height: 1;
-  cursor: pointer;
+  text-decoration: none;
   pointer-events: auto;
 }
 
-.image-controls label:hover {
+.image-controls a:hover {
   background: #34435f;
 }
 
@@ -229,7 +231,7 @@ figcaption p {
   margin-top: 16px;
 }
 
-.scene-picker label {
+.scene-picker a {
   display: grid;
   place-items: center;
   width: 30px;
@@ -239,22 +241,17 @@ figcaption p {
   background: #232d3f;
   color: #dce5f4;
   font-size: 0.78rem;
-  cursor: pointer;
+  text-decoration: none;
 }
 
-.scene-one:checked ~ .scene-picker label:nth-child(1),
-.scene-two:checked ~ .scene-picker label:nth-child(2),
-.scene-three:checked ~ .scene-picker label:nth-child(3) {
+.scene-picker a:hover {
+  background: #34435f;
+}
+
+.scene-picker a[aria-current='page'] {
   border-color: #a8bee8;
   background: #5c76a6;
   color: white;
-}
-
-.scene-one:focus-visible ~ .scene-picker label:nth-child(1),
-.scene-two:focus-visible ~ .scene-picker label:nth-child(2),
-.scene-three:focus-visible ~ .scene-picker label:nth-child(3) {
-  outline: 2px solid #c9d9f6;
-  outline-offset: 3px;
 }
 
 /* Footer ---------------------------------------------------------------- */
@@ -268,10 +265,6 @@ figcaption p {
 
 .site-footer p {
   margin: 0;
-}
-
-.site-footer a {
-  color: #b9cbeb;
 }
 
 /* Small screens --------------------------------------------------------- */
@@ -297,7 +290,7 @@ figcaption p {
     inset: 0 8px;
   }
 
-  .image-controls label {
+  .image-controls a {
     width: 36px;
     height: 36px;
   }
