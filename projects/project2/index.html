@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang='en'>
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <title>Multiplication Challenge</title>
+  <link rel='stylesheet' href='styles.css'>
+  <script src='script.js' defer></script>
+</head>
+<body>
+  <main class='page'>
+    <h1>Multiplication Challenge</h1>
+    <p class='intro'>Fill in the missing product before time runs out.</p>
+
+    <section id='setup' class='panel' aria-label='New challenge'>
+      <form id='size-form' novalidate>
+        <label for='size'>Table size (1–20)</label>
+        <div class='setup-controls'>
+          <input id='size' name='size' type='number' min='1' max='20' step='1' value='4' required>
+          <button type='submit'>Create Table</button>
+        </div>
+        <p id='size-error' class='error' role='alert' hidden>Enter a whole number from 1 to 20.</p>
+      </form>
+    </section>
+
+    <section id='challenge' class='panel' aria-label='Multiplication table' hidden>
+      <form id='answer-form' novalidate>
+        <div class='challenge-controls'>
+          <p class='timer' role='timer'>Time left: <span id='seconds-left'>4</span> seconds</p>
+          <button type='submit'>Check Answer</button>
+        </div>
+        <div id='table-container' class='table-container'></div>
+      </form>
+    </section>
+
+    <section id='feedback' class='panel feedback' role='status' aria-live='polite' hidden>
+      <h2 id='feedback-message' tabindex='-1'></h2>
+    </section>
+  </main>
+</body>
+</html>

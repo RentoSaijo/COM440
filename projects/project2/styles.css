@@ -1,0 +1,241 @@
+/* Page ------------------------------------------------------------------ */
+
+:root {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #192536;
+  background: #f5f3ec;
+  --red: #a12f3b;
+  --blue: #245d99;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+}
+
+.page {
+  width: min(100% - 32px, 1000px);
+  margin: 48px auto;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 5vw, 2.5rem);
+}
+
+.intro {
+  margin: 0 0 24px;
+  line-height: 1.5;
+}
+
+.panel {
+  padding: 24px;
+  border: 1px solid #d8d9d7;
+  border-radius: 12px;
+  background: #fff;
+}
+
+/* Controls -------------------------------------------------------------- */
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.setup-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+input,
+button {
+  font: inherit;
+}
+
+#size {
+  width: 90px;
+  padding: 10px;
+  border: 1px solid #7b8793;
+  border-radius: 6px;
+}
+
+button {
+  padding: 10px 18px;
+  border: 2px solid #192536;
+  border-radius: 6px;
+  background: #f2cf57;
+  color: #192536;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 150ms, box-shadow 150ms, transform 150ms;
+}
+
+button:hover {
+  background: #ffe27d;
+  box-shadow: 0 4px 0 #192536;
+  transform: translateY(-2px);
+}
+
+button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid #245d99;
+  outline-offset: 3px;
+}
+
+.error {
+  margin: 12px 0 0;
+  color: #9d2734;
+}
+
+/* Challenge ------------------------------------------------------------- */
+
+.challenge-controls {
+  position: sticky;
+  z-index: 1;
+  top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+  padding: 4px 0;
+  background: #fff;
+}
+
+.timer {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #192536;
+  color: #fff;
+  font-weight: 700;
+}
+
+.table-container {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+table {
+  margin: 0 auto;
+  border-spacing: 3px;
+  font-variant-numeric: tabular-nums;
+}
+
+caption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+th,
+td {
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+  padding: 2px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+th {
+  background: #f2cf57;
+  color: #192536;
+}
+
+td {
+  color: #fff;
+  font-weight: 700;
+}
+
+.product-red {
+  animation: red-to-blue 8s infinite;
+}
+
+.product-blue {
+  animation: blue-to-red 8s infinite;
+}
+
+.answer {
+  width: 100%;
+  min-width: 0;
+  height: 34px;
+  padding: 0 2px;
+  border: 1px solid #192536;
+  border-radius: 3px;
+  background: #fff;
+  color: #192536;
+  text-align: center;
+  appearance: textfield;
+}
+
+.answer::-webkit-inner-spin-button,
+.answer::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.feedback h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+/* Color swap ------------------------------------------------------------ */
+
+@keyframes red-to-blue {
+  0%, 45%, 100% { background-color: var(--red); }
+  50%, 95% { background-color: var(--blue); }
+}
+
+@keyframes blue-to-red {
+  0%, 45%, 100% { background-color: var(--blue); }
+  50%, 95% { background-color: var(--red); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-red,
+  .product-blue {
+    animation: none;
+  }
+
+  .product-red {
+    background-color: var(--red);
+  }
+
+  .product-blue {
+    background-color: var(--blue);
+  }
+
+  button {
+    transition: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .page {
+    margin: 28px auto;
+  }
+
+  .panel {
+    padding: 16px;
+  }
+}
