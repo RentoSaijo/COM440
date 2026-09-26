@@ -176,11 +176,11 @@ td {
 }
 
 .animated .product-red {
-  animation: red-to-blue 8s infinite;
+  animation: red-to-blue 8s -1s infinite;
 }
 
 .animated .product-blue {
-  animation: blue-to-red 8s infinite;
+  animation: blue-to-red 8s -1s infinite;
 }
 
 .answer {
