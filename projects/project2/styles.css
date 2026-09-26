@@ -92,7 +92,7 @@ button:active {
 }
 
 button:focus-visible,
-input:focus-visible {
+#size:focus-visible {
   outline: 3px solid #245d99;
   outline-offset: 3px;
 }
@@ -168,10 +168,18 @@ td {
 }
 
 .product-red {
-  animation: red-to-blue 8s infinite;
+  background-color: var(--red);
 }
 
 .product-blue {
+  background-color: var(--blue);
+}
+
+.animated .product-red {
+  animation: red-to-blue 8s infinite;
+}
+
+.animated .product-blue {
   animation: blue-to-red 8s infinite;
 }
 
@@ -186,6 +194,11 @@ td {
   color: #192536;
   text-align: center;
   appearance: textfield;
+}
+
+.answer:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .answer::-webkit-inner-spin-button,
@@ -212,17 +225,9 @@ td {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .product-red,
-  .product-blue {
+  .animated .product-red,
+  .animated .product-blue {
     animation: none;
-  }
-
-  .product-red {
-    background-color: var(--red);
-  }
-
-  .product-blue {
-    background-color: var(--blue);
   }
 
   button {

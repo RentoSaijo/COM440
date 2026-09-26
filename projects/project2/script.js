@@ -32,6 +32,7 @@ function buildTable(size, questionRow, questionColumn) {
   const corner     = document.createElement('th');
   const body       = document.createElement('tbody');
   let questionInput = null;
+  if (size > 4) table.className = 'animated';
   caption.textContent = `${size} by ${size} multiplication table`;
   corner.scope = 'col';
   corner.textContent = '×';
