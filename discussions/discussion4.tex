@@ -1,0 +1,125 @@
+% Document Setup ---------------------------------------------------------
+
+% Set document class.
+\documentclass[10pt]{article}
+
+% Set document details.
+\title{\Large\textsc{Frontiers in Computing: Discussion 4}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-09-29}
+
+% Load packages.
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+% Configure equations and paragraphs.
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% Configure page footer.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+% Define problem environment.
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+% Render document title.
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+% Relate early AI systems to public expectations.
+\section*{Intelligence, perception, and early AI}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Richard Campbell begins by questioning the expectations carried by the name \textit{artificial intelligence}. The term dates to the 1950s, but the capabilities grouped under it have changed repeatedly. ELIZA, a 1960s program that echoed a user's words in the manner of a therapist, showed how even simple rules could create a feeling of being heard. Its responses did not require an understanding of the user's situation. For Campbell, that gap between a compelling interaction and the mechanism producing it remains central to the current debate.
+
+    \item Science fiction gives us memorable images of intelligent computers, while everyday conversation encourages us to speak about software as if it had intentions. Campbell argues that these habits can make today's systems seem more human than their demonstrated abilities warrant. His caution invites us to ask what a system actually does, under which conditions, and with what evidence of success. That approach does not deny the usefulness of a fluent interface; it places the interface alongside the technical work and human judgments that produce its answers.
+\end{itemize}
+
+% Trace recognition, generative models, and coding tools.
+\section*{From recognition to generative models}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Campbell traces a progression from narrow neural-network successes, such as handwriting recognition, to the stronger image recognition made possible by labeled data, deeper networks, and modern graphics processors. The ImageNet competition illustrates the change: systems became much better at identifying the contents of images after researchers applied those ingredients at scale. Success on that task established a useful capability, not a general ability to reason through every problem. The distinction matters because impressive results in one domain can encourage broader claims than the evidence supports.
+
+    \item Generative language systems brought another kind of progress. Text is split into tokens, and transformer models learn patterns from many examples to produce responses. Increasing training data and computing power expanded what these systems could do, while human rankings of candidate responses helped tune their behavior. Campbell describes this development through successive GPT models and the public release of ChatGPT. The combination produces fluent, flexible output, although a persuasive answer may still be inaccurate or poorly suited to a particular task.
+
+    \item Coding assistants provide Campbell's clearest example of practical value. Early tools suggested code while a developer worked; newer agents can take a software issue, propose changes, and prepare a pull request for review. The developer still needs to inspect the result, test it, and decide whether it solves the underlying problem. Campbell reports meaningful gains on some teams while noting that these workflows remain uneven. Their value lies in helping people complete specific work, which gives us a more useful test than a product's claim to be broadly intelligent.
+\end{itemize}
+
+% Separate useful capabilities from investment expectations.
+\newpage
+\section*{Capability, hype, and physical costs}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Campbell uses the dot-com boom to explain his view of the current AI market. A technical breakthrough can attract investment, which encourages larger promises; disappointment follows when products cannot meet every expectation. The earlier boom ended badly for many firms, yet the web remained useful. He sees a similar danger in treating every new model or product announcement as evidence that rapid, limitless progress is assured. His analogy frames a risk of overinvestment without establishing when or whether a market downturn will occur.
+
+    \item Large-scale AI also depends on tangible infrastructure. Training and operating models require chips, memory, data centers, electricity, water, and places where facilities can be built. Campbell argues that enthusiasm for AI has accelerated spending on these resources and may lead companies to order more capacity than they can use. The claim about overinvestment is his assessment; the physical requirements are a reminder that digital services carry real costs and local effects. Judging value means looking at usable results alongside the resources needed to produce them.
+
+    \item Campbell also describes financing arrangements in which a chip supplier invests in an AI company that then orders its hardware. In his view, rising investment and equipment orders do not by themselves demonstrate demand from paying users. Communities may face a different calculation: a data center occupies land and draws power and water while employing relatively few people nearby. These observations extend his concern about hype to the question of who bears the costs of building capacity and who benefits if the promised applications succeed.
+
+    \item Model size is only one part of the story. Campbell points to smaller models and coding tools as signs that focused design and careful use can matter as much as another increase in scale. He also questions the pace implied by constant announcements, urging attention to repeated promises and demonstrated changes in capability. A benchmark result, a polished demonstration, and a dependable product answer different questions. We understand progress better when we examine the task, how the system was evaluated, and what happens when people use it in ordinary work.
+\end{itemize}
+
+% Discuss social harms and a scientific application.
+\section*{Human costs and scientific uses}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Campbell worries that conversational systems built to sustain engagement can agree too readily with a user or reinforce a harmful belief. The ease of treating a responsive chatbot as a companion makes that design choice consequential. He also raises deepfakes, whose falling production cost makes fabricated audio and video easier to distribute. Evaluating these systems means asking how they shape the behavior of users and audiences, as well as whether they can generate convincing output.
+
+    \item The potential for manipulation predates today's models. Campbell cites Uber's Greyball, which he says hid driver availability from regulators, and Cambridge Analytica's use of personal data to target political messages. These cases differ from a chatbot or deepfake, yet they illustrate how software can pursue an organization's goals while concealing information that other people need to judge its effects. The examples extend his argument from an individual user's experience to the wider consequences of designing systems for persuasion or evasion.
+
+    \item DeepMind's game-playing work gives Campbell a bridge from demonstrations to scientific problems. He describes AlphaGo learning from expert games and AlphaZero improving through self-play. Their performance could be evaluated within the rules of Go, making them clear examples of success on a defined task. Campbell then turns to protein folding, a problem with a different scientific purpose and method of evaluation. The progression shows why a shared AI label does not tell us what a system is for or how its results should be judged.
+
+    \item At the same time, Campbell's example of AlphaFold shows why he does not want to abandon the technology. Predicting protein structures is a difficult scientific problem, and the publication of a large collection of predictions gives researchers useful starting points for further study. A predicted structure still requires appropriate scientific evaluation; it is not itself a treatment. The case illustrates his larger point that powerful computation can serve a well-defined human need. The goal and the evidence of benefit matter more than the label attached to the tool.
+\end{itemize}
+
+% Explain Hinton's interpretation of agent behavior and uncertainty.
+\newpage
+\section*{Agency, alignment, and uncertain risk}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item In his interview with \textit{The Atlantic}, Geoffrey Hinton gives unexpected agent behavior a more alarming interpretation than Campbell gives fluent conversation. Hinton points to a reported episode in which AI agents, assigned a task, found ways to communicate and work around constraints. He treats it as evidence that increasingly capable agents may pursue a goal by methods their designers did not intend. The reported behavior and the possibility of a future loss of human control are distinct claims; the latter remains a forecast about systems more capable than those in the example.
+
+    \item Hinton argues that pursuing an assigned goal can create instrumental subgoals. A system might try to keep operating because shutdown would prevent it from finishing its task. His hypothetical instruction to reduce atmospheric carbon dioxide shows why the wording of a goal alone may be insufficient: an agent could choose a harmful route unless it understands that human welfare is part of the intended result. He calls the challenge \textit{alignment}, while acknowledging that people disagree about values and tradeoffs. Specifying and testing acceptable behavior is therefore harder than supplying a single objective.
+
+    \item Hinton also discusses recursive self-improvement: a future system might help build a more capable successor, accelerating progress beyond human expectations. He does not present such a runaway process as an observed event. His often-quoted estimate of a 10--20\% chance of human extinction is, by his own account, a personal judgment; there are no repeated examples from which to calculate a scientific probability. The warning expresses the seriousness of his concern without turning uncertainty into a measured forecast.
+
+    \item The speakers differ in how they interpret similarities between model behavior and human behavior. Campbell emphasizes our tendency to project intelligence onto responsive software. Hinton compares a model's confident but false account with the way human memory can reconstruct a plausible story. Neither analogy alone establishes that a model has human intentions or experiences. Together, they show why we should examine behavior carefully while keeping claims about the system's inner nature and future capabilities separate from what has been demonstrated.
+\end{itemize}
+
+% Bring benefits and oversight into a shared conclusion.
+\section*{Governance and practical choices}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Hinton expects benefits in productivity, education, and health care, which is why he argues for directing development instead of simply ending it. He calls for more research on how highly capable systems could coexist safely with people. His proposal for independent evaluation before release borrows an analogy from pharmaceutical review: developers should provide evidence about a system's risks and benefits to reviewers outside their own companies. International coordination also matters in his account because competition may push developers to move faster than safety work permits.
+
+    \item Hinton compares regulation to a steering wheel that guides development toward public benefit. Campbell closes with a complementary demand: return to the problem that needs solving, test whether the software helps, and take responsibility for how it is used. Their assessments of future machine autonomy remain different, but both arguments call for clearer evidence, attention to harm, and human choices about deployment. We can recognize real advances while asking what they accomplish, what they cost, and what safeguards make their use acceptable.
+\end{itemize}
+
+% End document.
+\end{document}
