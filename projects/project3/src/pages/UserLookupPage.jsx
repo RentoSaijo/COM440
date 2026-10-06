@@ -1,28 +1,32 @@
-// src/pages/UserLookupPage.jsx
-import React, { useState } from 'react';
+// Imports ---------------------------------------------------------------
+
+// Load component dependencies.
+import { useState } from 'react';
 import styled from 'styled-components';
 import SearchForm from '../components/SearchForm';
 import UserList from '../components/UserList';
 import CreateUserForm from '../components/CreateUserForm';
+import DatabaseButtons from '../components/DatabaseButtons';
 import { searchUsers } from '../services/api';
 
-const PageContainer = styled.div`
+// Styles ----------------------------------------------------------------
+
+// Center page content.
+const PageContainer = styled.main`
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
 `;
 
+// Style page heading.
 const Header = styled.header`
   text-align: center;
   margin-bottom: 2rem;
-  margin: 10% auto;
-
   h1 {
     font-size: 2.5rem;
     color: #333;
     margin: 0 0 1rem;
   }
-
   p {
     color: #666;
     font-size: 1.1rem;
@@ -31,14 +35,13 @@ const Header = styled.header`
   }
 `;
 
+// Display loading indicator.
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 200px;
-  border: 2px solid blue;
-  margin: 10% auto;
-
+  margin: 2rem auto;
   .loader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #3498db;
@@ -47,13 +50,13 @@ const LoadingContainer = styled.div`
     height: 50px;
     animation: spin 1s linear infinite;
   }
-
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
 `;
 
+// Display request errors.
 const ErrorMessage = styled.div`
   text-align: center;
   color: #e74c3c;
@@ -64,6 +67,7 @@ const ErrorMessage = styled.div`
   margin: 2rem auto;
 `;
 
+// Separate search and creation forms.
 const Divider = styled.hr`
   border: 0;
   height: 1px;
@@ -71,31 +75,34 @@ const Divider = styled.hr`
   margin: 3rem 0;
 `;
 
+// Component -------------------------------------------------------------
+
+// Render search and user creation controls.
 const UserLookupPage = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Helpers -------------------------------------------------------------
+
+  // Retrieve matching users.
   const handleSearch = async (query) => {
     setIsLoading(true);
     setError(null);
-
     try {
-      // Call the actual API service to search users
       const results = await searchUsers(query);
       setSearchResults(results);
       setHasSearched(true);
     } catch (err) {
       setError('Failed to search users. Please try again.');
-      console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Include newly created users in displayed search results.
   const handleUserCreated = (newUser) => {
-    // Add the newly created user to the search results if we've already searched
     if (hasSearched) {
       setSearchResults(prev => [newUser, ...prev]);
     }
@@ -110,11 +117,11 @@ const UserLookupPage = () => {
 
       <SearchForm onSearch={handleSearch} isLoading={isLoading} />
 
-      {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && <ErrorMessage role='alert'>{error}</ErrorMessage>}
 
       {isLoading ? (
-        <LoadingContainer>
-          <div className="loader"></div>
+        <LoadingContainer role='status' aria-label='Searching users'>
+          <div className='loader'></div>
         </LoadingContainer>
       ) : (
         hasSearched && <UserList users={searchResults} />
@@ -123,6 +130,7 @@ const UserLookupPage = () => {
       <Divider />
 
       <CreateUserForm onUserCreated={handleUserCreated} />
+      <DatabaseButtons />
     </PageContainer>
   );
 };

@@ -1,59 +1,40 @@
-// src/services/api.js
+// Configuration ---------------------------------------------------------
+
+// Locate local backend.
 const API_BASE_URL = 'http://localhost:3001/api';
 
-export const searchUsers = async (query) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users/search?q=${encodeURIComponent(query)}`);
+// Helpers ---------------------------------------------------------------
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error searching users:', error);
-    throw error;
+// Read responses and report server errors.
+const request = async (path, options = {}) => {
+  const response = await fetch(`${API_BASE_URL}${path}`, { cache: 'no-store', ...options });
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({}));
+    throw new Error(data.error || `Request failed (${response.status})`);
   }
+  return response.status === 204 ? null : response.json();
 };
 
-export const getUserById = async (userId) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users/${userId}`);
+// User requests ---------------------------------------------------------
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
-    }
+// Search matching users.
+export const searchUsers = query =>
+  request(`/users/search?q=${encodeURIComponent(query)}`);
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(`Error fetching user ${userId}:`, error);
-    throw error;
-  }
-};
+// Retrieve individual user details.
+export const getUserById = userId => request(`/users/${encodeURIComponent(userId)}`);
 
-export const createUser = async (userData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
+// Create user records.
+export const createUser = userData => request('/users', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(userData),
+});
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
-    }
+// Retrieve complete records in salary order.
+export const getUsers = order => request(`/users?order=${encodeURIComponent(order)}`);
 
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error('Error creating user:', error);
-    throw error;
-  }
-};
+// Delete individual user records.
+export const deleteUser = userId => request(`/users/${encodeURIComponent(userId)}`, {
+  method: 'DELETE',
+});

@@ -1,15 +1,21 @@
-// src/pages/UserDetailsPage.jsx
-import React, { useState, useEffect } from 'react';
+// Imports ---------------------------------------------------------------
+
+// Load component dependencies.
+import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUserById } from '../services/api';
 
-const PageContainer = styled.div`
+// Styles ----------------------------------------------------------------
+
+// Center page content.
+const PageContainer = styled.main`
   max-width: 800px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 1rem;
 `;
 
+// Style return navigation.
 const BackButton = styled(Link)`
   display: inline-block;
   margin-bottom: 2rem;
@@ -20,29 +26,29 @@ const BackButton = styled(Link)`
   border-radius: 4px;
   font-weight: bold;
   transition: background 0.2s ease;
-
   &:hover {
     background: #3a7bc8;
   }
 `;
 
+// Group user details.
 const UserCard = styled.div`
   background: white;
   border-radius: 8px;
-  padding: 2rem;
+  padding: clamp(1rem, 3vw, 2rem);
+  overflow-wrap: anywhere;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 `;
 
+// Style user heading.
 const UserHeader = styled.div`
   margin-bottom: 2rem;
   border-bottom: 1px solid #eee;
   padding-bottom: 1rem;
-
   h1 {
     margin: 0 0 0.5rem;
     color: #333;
   }
-
   p {
     margin: 0;
     color: #666;
@@ -50,12 +56,14 @@ const UserHeader = styled.div`
   }
 `;
 
+// Arrange user details.
 const UserInfo = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
   gap: 1.5rem;
 `;
 
+// Style individual fields.
 const InfoItem = styled.div`
   h3 {
     margin: 0 0 0.5rem;
@@ -64,7 +72,6 @@ const InfoItem = styled.div`
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-
   p {
     margin: 0;
     color: #333;
@@ -72,12 +79,12 @@ const InfoItem = styled.div`
   }
 `;
 
+// Display loading indicator.
 const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 300px;
-
   .loader {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #3498db;
@@ -86,13 +93,13 @@ const LoadingContainer = styled.div`
     height: 50px;
     animation: spin 1s linear infinite;
   }
-
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
 `;
 
+// Display request errors.
 const ErrorMessage = styled.div`
   text-align: center;
   color: #e74c3c;
@@ -102,6 +109,7 @@ const ErrorMessage = styled.div`
   margin: 2rem 0;
 `;
 
+// Style recovery actions.
 const RetryButton = styled.button`
   background: #4a90e2;
   color: white;
@@ -111,12 +119,14 @@ const RetryButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   margin-top: 1rem;
-
   &:hover {
     background: #3a7bc8;
   }
 `;
 
+// Component -------------------------------------------------------------
+
+// Render individual user details.
 const UserDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -124,11 +134,11 @@ const UserDetailsPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log("UserDetailsPage rendered with ID:", id); // Debug log
+  // Helpers -------------------------------------------------------------
 
+  // Retrieve requested user records.
   const fetchUserDetails = async () => {
     if (!id) {
-      console.error("No ID parameter found");
       setError('User ID is missing');
       setIsLoading(false);
       return;
@@ -136,35 +146,30 @@ const UserDetailsPage = () => {
 
     setIsLoading(true);
     setError(null);
-
     try {
-      console.log(`Fetching user with ID: ${id}`); // Debug log
-
-      // Use the API call to fetch user data
       const userData = await getUserById(id);
-
       if (!userData) {
         throw new Error('No user data returned from the server');
       }
-
-      console.log("User data received:", userData); // Debug log
       setUser(userData);
     } catch (err) {
-      console.error("Error fetching user:", err);
       setError(err.message || 'Failed to load user details');
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Load details when user identifiers change.
   useEffect(() => {
     fetchUserDetails();
-  }, [id]); // Make sure to include id in the dependency array
+  }, [id]);
 
+  // Retry failed requests.
   const handleRetry = () => {
     fetchUserDetails();
   };
 
+  // Return to search page.
   const handleGoBack = () => {
     navigate('/');
   };
@@ -172,9 +177,9 @@ const UserDetailsPage = () => {
   if (isLoading) {
     return (
       <PageContainer>
-        <BackButton to="/">← Back to Search</BackButton>
-        <LoadingContainer>
-          <div className="loader"></div>
+        <BackButton to='/'>← Back to Search</BackButton>
+        <LoadingContainer role='status' aria-label='Loading user details'>
+          <div className='loader'></div>
         </LoadingContainer>
       </PageContainer>
     );
@@ -183,8 +188,8 @@ const UserDetailsPage = () => {
   if (error || !user) {
     return (
       <PageContainer>
-        <BackButton to="/">← Back to Search</BackButton>
-        <ErrorMessage>
+        <BackButton to='/'>← Back to Search</BackButton>
+        <ErrorMessage role='alert'>
           {error || 'User not found'}
           <div style={{ marginTop: '1rem' }}>
             <RetryButton onClick={handleRetry} style={{ marginRight: '1rem' }}>
@@ -199,14 +204,14 @@ const UserDetailsPage = () => {
     );
   }
 
-  // Filter out id, name, and email as they're displayed in the header
+  // Select details displayed below user heading.
   const userDetails = Object.entries(user).filter(
     ([key]) => !['id', 'name', 'email'].includes(key)
   );
 
   return (
     <PageContainer>
-      <BackButton to="/">← Back to Search</BackButton>
+      <BackButton to='/'>← Back to Search</BackButton>
 
       <UserCard>
         <UserHeader>
