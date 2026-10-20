@@ -1,0 +1,141 @@
+% Document Setup ---------------------------------------------------------
+
+% Set document class.
+\documentclass[10pt]{article}
+
+% Set document details.
+\title{\Large\textsc{Frontiers in Computing: Discussion 8}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-10-19}
+
+% Load packages.
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+% Configure equations and paragraphs.
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\interlinepenalty = 10000
+
+% Configure page footer.
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+% Define problem environment.
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+% Explain secrecy through the earliest assigned ciphers.
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+\section*{From classical ciphers to secret keys}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Khan Academy introduces cryptography through Alice sending a message to Bob while Eve can observe the channel. The original \textit{plaintext} becomes \textit{ciphertext} under an encryption algorithm and a key; Bob reverses the transformation with the appropriate key. In a symmetric system, Alice and Bob share that secret in advance. The algorithm can be public, since secrecy should rest on the key. This simple setup immediately poses two questions that recur throughout the lessons: can Eve recover the message from what she sees, and how can Alice and Bob obtain a suitable secret before they communicate?
+
+    \item Caesar's cipher answers the first question poorly. Shifting each letter three places, for example, turns A into D, but an attacker can try the small number of possible shifts. Al-Kindi's frequency analysis gives a stronger attack on a general substitution cipher: in a sufficiently long sample of a language, some letters appear more often than others, leaving a recognizable fingerprint even when their symbols change. A short message may not show a clear pattern, but a predictable rule used repeatedly leaks structure. A polyalphabetic cipher varies the substitution using a repeating keyword, so one plaintext letter can encrypt to different letters. It flattens the obvious frequency pattern; repetitions in the keyword can still expose its length and let an analyst examine the resulting substreams.
+
+    \item The one-time pad takes variation to its logical extreme. Alice combines each message symbol with an independent, uniformly random key symbol, and Bob uses the same pad to reverse it. If that pad remains secret, is at least as long as the message, and is never reused, every plaintext of the same length remains consistent with the observed ciphertext. Eve has no evidence favoring one candidate over another, even with unlimited computing power. The lesson's shift alphabet illustrates this with \(26^n\) possible pads for an \(n\)-letter message. Yet the conditions are demanding: Alice and Bob must securely distribute and protect as much fresh key material as they intend to send, and using any portion twice destroys the one-time guarantee.
+\end{itemize}
+
+% Connect observed randomness, mechanical ciphers, and pseudorandom keys.
+\section*{Patterns, perfect secrecy, and pseudorandomness}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item The frequency-stability film makes the distinction between randomness and a sequence that merely looks mixed. Over many fair coin tosses, heads and tails tend toward similar proportions, while short runs can depart markedly from a half-and-half split. Human attempts to write ``random'' strings often avoid long runs, creating a pattern of their own. This matters because a cipher can fail through statistical regularities without displaying an obvious readable word. The wartime Enigma machine provides a richer example. Its rotating components changed the substitution as each letter was typed, and operators used daily settings as keys. Nevertheless, predictable messages and operating habits gave codebreakers useful guesses; the machine's rule that a letter never encrypted to itself also let them discard candidate settings. Large key spaces and elaborate hardware did not erase structural and human weaknesses.
+
+    \item Shannon's concept of \textit{perfect secrecy} makes the one-time pad's claim precise: seeing a ciphertext does not change the probability assigned to any possible plaintext of the same length. This is an information claim, not a promise that a particular attacker lacks enough time. The random pad makes each candidate message compatible with a matching key. Once the pad is reused, however, two ciphertexts become related through the same key and may reveal information about their plaintexts. We therefore have to distinguish the security of the mathematical construction from the practical task of producing, sharing, storing, and retiring its keys.
+
+    \item The lesson's shuffled-deck comparison helps us see why the word \textit{random} carries so much weight. Before we reveal a card from a thoroughly shuffled deck, we cannot favor one position for it; learning an unrelated description of the deck should not change those odds. Similarly, a correctly generated pad gives Eve no preference among equal-length candidate messages after she sees the ciphertext. This reasoning is stronger than observing that a ciphertext looks jumbled. A sequence can look irregular while coming from a tiny, searchable set of seeds, and a repeated key can make a second ciphertext informative even though each individual one appears unreadable.
+
+    \item A pseudorandom generator addresses the burden of storing a long random pad by expanding a shorter \textit{seed} into a long sequence. The same seed and algorithm reproduce the same output, which lets two parties generate matching streams. Khan Academy uses von Neumann's middle-squares method to explain the idea, including the fact that a finite-state generator eventually repeats. That historical method is not a suitable modern cryptographic generator. More generally, a small or predictable seed lets Eve search the limited set of possible outputs. A cryptographically secure generator instead needs an unpredictable seed and a design that makes its output infeasible to distinguish from random or predict in practice. Its protection is \textit{computational}: unlike a true one-time pad, it does not offer perfect secrecy against an adversary with unlimited resources. The two parties still need a secure way to agree on the seed or session key.
+\end{itemize}
+
+% Develop the mathematical bridge to key exchange and RSA.
+\section*{Public keys and hard mathematical problems}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Modern cryptography begins with a fact about integers: every integer greater than one has a unique factorization into primes, apart from the order of its factors. We can quickly multiply two chosen primes; recovering them from a sufficiently large product is a very different computational task. The lessons use this asymmetry to motivate public-key methods. Public information can support a calculation that is easy to perform, while secret information makes its reversal feasible.
+
+    \item Diffie and Hellman's color-mixing analogy first shows the central idea: Alice and Bob publish mixtures formed with their own private choices, then combine what they receive with the secret choice they kept. Modular arithmetic makes this concrete. With a public prime \(p\) and a suitable generator \(g\), Alice sends \(A=g^a\bmod p\) and Bob sends \(B=g^b\bmod p\), retaining private exponents \(a\) and \(b\). Alice computes \(B^a\bmod p\), while Bob computes \(A^b\bmod p\); both obtain \(g^{ab}\bmod p\). The discrete-logarithm problem explains why recovering a private exponent from a public value is difficult for suitably chosen large groups. In the lesson's small example, \(p=17\), \(g=3\), \(a=15\), and \(b=13\) yield public values \(6\) and \(12\) and a shared result of \(10\). Those tiny parameters teach the arithmetic but provide no security.
+
+    \item Publicly exchanging numbers does not, by itself, tell Alice that the value labeled ``Bob'' came from Bob. An active intermediary can replace each party's public value and form a separate secret with each. This \textit{man-in-the-middle} attack is the gap between unauthenticated Diffie--Hellman and a secure channel. In practice, participants authenticate the exchange, often through signatures tied to verified public keys, then derive symmetric session keys from the shared result. The calculation solves the problem of agreeing on a secret over an observed channel; authentication solves the separate problem of knowing with whom we agreed. Both are needed when Eve can alter traffic, not just listen.
+
+    \item RSA offers a different public-key construction. The lessons' open-lock analogy makes the direction of use clear: Alice publishes a key that Bob can use to encrypt for her, while she retains a private key to decrypt. A bank receiving messages from many new correspondents can publish such a key instead of arranging a distinct shared secret with every sender in advance. A mathematical version uses modular exponentiation as the public lock: raising a suitable message integer \(m\) to a public exponent \(e\) modulo \(n\) produces a ciphertext. Another exponent \(d\) must reverse the operation for Alice. The challenge is to choose these values so that she can calculate \(d\) but someone with only the public values cannot easily do so.
+
+    \item RSA's next step supplies the trapdoor by choosing distinct secret primes \(p\) and \(q\) and publishing their product \(n=pq\). The contrast is visible even in a small classroom example: \(19\cdot31=589\) is immediate to verify, but finding those factors from \(589\) requires a search unless we have extra information. Khan Academy's time-complexity exploration visualizes how the work required to factor sample numbers grows much more sharply than the work required to multiply them. At cryptographic sizes, careful algorithms and powerful computers matter, so the animation's timings should be read as an illustration of a problem's growth, not a stopwatch prediction for every system. The assumption is about the difficulty of known attacks with appropriately chosen parameters; it is not a proof that factoring can never become easier.
+
+    \item Euler's totient \(\varphi(n)\) counts the positive integers up to \(n\) that are relatively prime to \(n\). Thus \(\varphi(8)=4\), since \(1,3,5,7\) qualify, while a prime \(p\) has \(\varphi(p)=p-1\). The lesson's totient exploration plots these values: prime inputs appear on the upper line, and composites fall below it according to their factors. For distinct primes, \(\varphi(pq)=(p-1)(q-1)\). Euler's theorem says \(m^{\varphi(n)}\equiv1\pmod n\) when \(m\) and \(n\) are coprime, helping explain the inverse exponents in the introductory RSA derivation. That coprimality qualification matters; the simplified identity does not apply to every message integer.
+
+    \item With the factorization in hand, Alice can calculate \(\varphi(n)\), select a public exponent \(e\) coprime to it, and find a private exponent \(d\) satisfying \(ed\equiv1\pmod{\varphi(n)}\). Her public key is \((n,e)\); the factorization and \(d\) stay private. Bob encrypts an appropriately encoded message integer as \(c=m^e\bmod n\), and Alice recovers it by computing \(c^d\bmod n\). For example, \(p=5\) and \(q=11\) give \(n=55\), \(\varphi(n)=40\), and a compatible pair \(e=3\), \(d=27\); these tiny values are only illustrative. Knowing the factors makes the totient and private exponent straightforward to calculate. Secure implementations also pad and encode messages instead of applying bare textbook RSA to arbitrary text.
+
+    \item The connection between these topics is a shift in what must remain secret. Caesar and the one-time pad assume Alice and Bob already share a key. Diffie--Hellman lets them derive a shared secret from public contributions when the exchange is authenticated. RSA separates a publishable key from a private decryption key, making it possible for a new sender to encrypt to a recipient without first receiving the recipient's secret. None of these ideas removes key-management work: private values need protection, public values need authentic distribution, and insecure toy parameters or unprotected exchanges defeat otherwise sound mathematics.
+\end{itemize}
+
+% Distinguish digests, authentication, and password storage.
+\section*{Hashes, signatures, and their distinct jobs}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Professor Messer turns from secrecy to integrity. A cryptographic hash maps an arbitrary-length input to a fixed-length digest; SHA-256 produces 256 bits, often shown as 64 hexadecimal characters. Changing a period in a sentence to an exclamation point produces a very different digest, an example of the avalanche effect. A hash cannot be decrypted to recover its input. Because infinitely many inputs map to finitely many outputs, collisions must exist; a secure hash makes useful collisions and preimages computationally hard to find. Messer's MD5 example shows why an algorithm with practical collision attacks should not be used where collision resistance matters.
+
+    \item Hashing a downloaded Linux image and comparing the result with a published digest can reveal accidental corruption or a mismatch. Yet a digest copied from the same compromised site or channel as the file does not independently authenticate that file. This distinction is why signatures often accompany hashes. A signer computes a digest of a message and uses a private signing key to create a signature; a verifier checks it with the corresponding authentic public key and the received message. If verification succeeds, the message matches what the key holder signed, subject to the security of the algorithm and the key. Signing does not hide the message: Messer's ``You're hired, Bob'' example can travel in plaintext with a separate signature. A signature is a defined cryptographic operation, not general-purpose ``encryption with a private key.''
+
+    \item A valid signature supports integrity and authentication of the signing key; it identifies a person or organization only when the verification key is reliably linked to that identity. It can also provide evidence against later denial, although legal non-repudiation depends on key custody and context. Password storage uses hashing for another purpose. A service should store a separate random salt and the output of a purpose-built, costly password-hashing scheme for each account, then recompute and compare on login. Salts make identical passwords yield different stored values and frustrate precomputed rainbow tables, while the work factor raises the cost of each offline guess. Ordinary fast SHA-256 plus a salt alone is not an adequate replacement for such a scheme; neither a hash nor a salt makes a weak password unguessable.
+\end{itemize}
+
+% Apply the primitives to real-world systems and failures.
+\section*{Key management in deployed systems}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Cryptography 101 brings the building blocks together around two common goals. For a private channel, Alice and Bob need a shared session key, then an authenticated-encryption method such as AES-GCM can protect both message confidentiality and integrity. A key exchange such as elliptic-curve Diffie--Hellman can establish that key, but exchanged public values must be authenticated against an intermediary. A signed software update has a different goal: recipients generally need to know that the code came from the claimed vendor and has not changed, rather than keep the update secret. Anyone with the vendor's authentic public verification key can check the signature. In both settings, secure distribution of the \emph{right} public key is central.
+
+    \item The lecture distinguishes a message authentication code (MAC) from a digital signature at this point. A MAC gives integrity and origin assurance to parties that share its secret; because either holder can create a valid tag, an outsider cannot use that tag alone to identify which holder produced it. A signature uses one party's private signing key and a public verification key, so many recipients can check a vendor's software update without receiving a shared signing secret. An authenticated-encryption mode combines encryption with an integrity check for a session, provided the system handles its keys and nonces correctly. These tools meet different goals, and an application may need more than one of them.
+
+    \item The lecture's historical GSM example shows an alternative based on pre-shared symmetric keys. A SIM and the mobile provider hold a subscriber-specific secret. The network sends a fresh challenge, the SIM calculates a keyed response, and the provider checks it against its copy; the new challenge prevents straightforward replay of an old response. Related key material protects the radio link between the handset and the nearby network equipment. This scheme scales by distributing a SIM to each subscriber, but the provider has to safeguard a database of secrets. The example also shows a boundary: protection of that radio hop is not end-to-end confidentiality between two callers, and the original GSM arrangement does not give the handset equivalent assurance about the base station.
+
+    \item The lecture's PlayStation case shows that public-key cryptography can fail through a small implementation choice. Approved software carried ECDSA signatures checked against a public key in the console. Sony's reuse of a per-signature secret value allowed attackers to infer its private signing key from multiple signatures, so an unauthorized program could be made to look approved. A public verification key fixed in firmware made recovery more difficult. This is why fresh, correctly generated nonces, protection of signing keys, and a workable route to replace compromised keys matter as much as selecting a sound signature algorithm. The same lesson applies to secure boot and update systems: the device must know which verification key to trust and what to do if that key is exposed.
+
+    \item Real deployments therefore need a key lifecycle: generate strong keys with suitable randomness; distribute public keys authentically and shared secrets securely; protect private keys in software or hardware; rotate, revoke, and replace keys when necessary. Mature libraries help avoid implementation errors, but timing leaks, configuration mistakes, and confusing user workflows can still undermine a protocol. Cryptography 101 previews other systems, including TLS and messaging, without developing them in this assigned lecture. Its immediate conclusion is broader: the hard part is often maintaining trustworthy keys and usable procedures across millions of people and devices, not writing down an encryption equation.
+\end{itemize}
+
+% Finish with the public-key trust model described by IBM.
+\section*{Certificates and trustworthy connections}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item IBM's public-key infrastructure (PKI) explainer returns to the unresolved identity problem. A website operator generates a public/private key pair, keeps the private key protected, and submits a certificate signing request that includes its public key and identifying information. A certificate authority (CA) checks the requested identity under its issuance rules and signs a certificate that binds the public key to the domain. The certificate can be distributed openly: the CA's signature, rather than secrecy of the file, is what allows a browser to test the binding. A hardware security module can keep a private key from being exported, though it does not remove the need to secure the surrounding account and server.
+
+    \item When a browser connects, it checks that the certificate names the intended domain, is valid for the current use, and leads through a valid chain of signatures to a trusted root. It also checks that the server can prove control of the associated private key during the connection setup. The root trust store supplies the starting point; certificates signed by intermediates create the chain. The browser does not have to contact the CA for every request simply to verify a signature, although certificate status and other checks may involve additional mechanisms. The familiar lock indicates an authenticated, encrypted connection to the named site under the browser's trust rules. It does not certify that the site's content, business practices, or downloads are harmless.
+
+    \item Consider what Eve would need to replace the website's key while Bob visits it. Sending a different public key is easy, but Bob's browser should reject a certificate whose signature does not lead to a trusted root or whose name does not match the domain he requested. Copying the real certificate is also insufficient: Eve must prove possession of the corresponding private key in the handshake. The certificate therefore solves a specific authenticity problem without being a secret object. If a CA issues a bad certificate or a trusted private key is stolen, however, the normal checks may no longer provide the intended protection. Trust in the issuer and protection of the key remain assumptions of the system.
+
+    \item Certificate-based trust also has a lifecycle. The operator must renew certificates as they expire and replace keys after suspected compromise, while clients need current trust stores and reliable certificate validation. A secure hardware device may prevent extraction of a private key, as IBM notes, but an attacker who controls a server or its management process could still misuse permitted signing operations. PKI reduces the difficulty of distributing authentic public keys at scale; it does not relieve a site of operating its keys, accounts, and applications safely. This is why a browser's success indicator should be read as evidence about the connection to a domain, never as an endorsement of everything that domain serves.
+
+    \item The last connection joins public-key authentication to efficient symmetric encryption. A modern secure web connection generally authenticates the server with its certificate and signature, performs an authenticated key exchange to derive fresh shared secrets, and then protects application data with symmetric encryption. This is more precise than the video's simplified picture of encrypting a session key with an arbitrary public/private-key direction; key-exchange and signature algorithms have distinct operations and roles. The same principle reaches back to Alice, Bob, and Eve: we must protect the message, establish a usable key, and verify whose key we have. Classical ciphers exposed patterns, public-key mathematics eased distribution, and PKI supplies a scalable way to attach an identity to a public key. Each layer works only when its assumptions and keys survive contact with the real system.
+\end{itemize}
+
+% End document.
+\end{document}
