@@ -1,0 +1,116 @@
+% Document Setup ---------------------------------------------------------
+
+\documentclass[10pt]{article}
+
+\title{\Large\textsc{Frontiers in Computing: Discussion 9}}
+\author{\large\textsc{Rento Saijo}}
+\date{2026-10-27}
+
+\usepackage[letterpaper, margin = 1in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{fancyhdr, lastpage}
+\usepackage{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+
+% Page Layout ------------------------------------------------------------
+
+\allowdisplaybreaks
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.3em}
+\clubpenalty = 10000
+\widowpenalty = 10000
+\interlinepenalty = 10000
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\textsc{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand{\headrulewidth}{0pt}
+
+% Helpers ----------------------------------------------------------------
+
+\newtcolorbox{problem}[1][]{
+    colframe = darkgray,
+    arc      = 0.1mm,
+    boxrule  = 2pt,
+    boxsep   = 1mm,
+    title    = {\textsc{#1}}
+}
+
+% Content ----------------------------------------------------------------
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+\vspace{-1em}\rule{\linewidth}{0.6pt}\vspace{0.5em}
+
+\section*{Why version control matters}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item A document, design, or program rarely reaches its final form in one sitting. We create files, revise them, and sometimes discover that an earlier choice worked better. Version control records selected states of a project together with information about who made a change, when it was recorded, and why. We can compare versions to see precisely what changed instead of relying on filenames such as ``final-v2.'' The first Git Basics video stresses that this history is useful beyond programming: a designer changing a logo and a writer correcting a document face the same need to understand earlier work.
+
+    \item Collaboration makes that record more valuable. Two people may edit adjacent files or even the same lines before either sees the other's work. A version control system retains their separate contributions and helps combine them through a \emph{merge}; a collision still needs a human decision about the desired result. Git is one implementation of version control. Unlike a system that needs a central server before we can save history, Git can create commits in a repository on our own computer. A shared server becomes useful when we want colleagues to exchange those commits, but local history does not depend on an internet connection.
+
+    \item The second Git Basics video introduces a project as a sequence of snapshots that can also branch. Each collaborator can start from a shared commit, work independently, and later integrate the results. This explains why the project history is more than a stack of backup copies: commits identify states and their parent commits, allowing Git to relate simultaneous lines of work. Git's small commands also let us choose exactly which changes belong in a commit. A graphical app can present the same history visually, while the underlying model remains the same.
+
+    \item The local design also changes what ``the project'' means in a team. Dana and Doug need not take turns at one keyboard or wait for a server to accept each step: each can keep a repository with the project's history and make local commits. Sharing later means exchanging commits and reconciling any branches that have diverged. The copies give collaborators independence, but they also make coordination necessary. A teammate cannot review a new local commit until it is shared, and identical filenames do not prove that two repositories have the same committed state.
+\end{itemize}
+
+\section*{Recording work in a local repository}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item The third Git Basics video begins with two pieces of attribution: \texttt{git config --global user.name} and \texttt{git config --global user.email}. Git places these values on commits, so an email in a public repository may become public. They are not credentials for a hosting account; authentication to GitHub is a separate step. We can start a repository with \texttt{git init}, either in the current project directory or with a new directory name. Git stores its history and control information in the hidden \texttt{.git} directory, while the ordinary files we edit form the \emph{working tree}. Deleting \texttt{.git} removes that local repository's history even if the visible project files remain.
+
+    \item The basic cycle is edit, inspect, stage, and commit. \texttt{git status} shows the current branch and distinguishes untracked files, changes waiting in the working tree, and changes staged for the next commit. We use \texttt{git add file} to place a chosen file's current contents in the \emph{staging area}, also called the index. \texttt{git commit -m "message"} then records a snapshot of the staged project state with an explanatory message. A commit is local until it is sent elsewhere. Repeating this cycle makes a useful history of completed steps, rather than saving every keystroke automatically.
+
+    \item Coder Coder makes that cycle concrete with a small website. Just after \texttt{git init}, \texttt{git status} reports no commits and no changes. Creating \texttt{index.html} and \texttt{style.css} makes them \emph{untracked}; Git sees the paths but has no committed version to compare with. After \texttt{git add index.html style.css}, status lists them under changes to be committed. The first \texttt{git commit} becomes the root of this local history, and status returns to a clean working tree. That clean report means Git detects no pending changes, not that the site has been tested or that unrelated ignored files are safe elsewhere.
+
+    \item Staging has a timing consequence that Coder Coder demonstrates with an HTML file. Suppose we add an initial page, run \texttt{git add index.html}, and then write another heading. The index still contains the page as it looked at the earlier \texttt{add}; the new heading remains unstaged. Running \texttt{git add index.html} again updates the staged contents. The same file can therefore appear in both the staged and unstaged parts of \texttt{git status}. This is why staging is useful for constructing a coherent commit, but it also means that ``I already added the file'' does not guarantee that our latest edits will be included.
+
+    \item Before committing, \texttt{git diff} shows tracked changes between the working tree and the staging area; \texttt{git diff --staged} compares the staged contents with the last commit. Together with \texttt{git status}, these checks tell us what we have changed and what the next commit will actually contain. Afterward, \texttt{git log} displays the history with authors, dates, messages, and commit identifiers, while \texttt{git log --oneline} gives a compact view. Each ordinary commit points to its parent, so we can follow the ancestry of a branch. A concise message should describe the change well enough for a future reader to understand why that point in the history exists.
+
+    \item The index also lets us decide the scope of a commit. \texttt{git add .} stages eligible changes under the current directory, which is convenient but can include an unintended file or deletion. Naming paths is more selective, and Git can even stage chosen portions of a text file when two ideas are interleaved. The tutorial also uses \texttt{git commit -am "message"} to stage and commit tracked modifications in one command. That shortcut does not include newly untracked files, and it reduces our chance to review the exact staged set. The deliberate inspection steps make a commit easier to explain and easier to reverse later.
+
+    \item Coder Coder's file move illustrates another useful distinction: Git records files and paths, not empty folders as independent objects. Moving a style sheet into a new directory may first appear as a deletion and an untracked path; after staging, Git may recognize the change as a rename by comparing file contents. For generated build files or a local file containing secrets, we can place patterns in \texttt{.gitignore} so untracked matches stay out of normal staging. The ignore file itself can be committed for teammates. An already tracked file remains tracked despite a new ignore rule; we must remove it from the index separately if we want future commits to stop tracking it, and a past public commit is not erased by that change.
+
+    \item In the tutorial, a local environment file and a generated build directory disappear from normal status after matching ignore patterns are added. That disappearance is a useful check, but it should not be mistaken for encryption or access control. The files still exist on the computer, and a forced add could include an ignored path. If a sensitive file was already committed, adding it to \texttt{.gitignore} cannot take back copies others may have downloaded. We would stop tracking the path for future commits, then treat any exposed credential as compromised and replace it. The point of the ignore rule is to prevent an accidental future addition, not to repair a published secret.
+\end{itemize}
+
+\section*{Branches, recovery, and shared repositories}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item A branch is a movable reference to a commit, not a complete second copy of the project. In the tutorial, \texttt{main} points to the current shared line of work, while a \texttt{welcome} branch lets us add a greeting without advancing \texttt{main}. We can create and switch in one step with \texttt{git switch -c welcome}; \texttt{git branch} lists branches and \texttt{git switch main} returns to the main line. Switching normally updates the working tree to match the selected branch's commit, subject to safeguards for local edits. New commits move the current branch's reference forward. This makes a feature branch a manageable place to finish one change before integrating it.
+
+    \item The log makes those movements visible. Before the greeting is committed, \texttt{main} and \texttt{welcome} can point to the same commit. After a commit on \texttt{welcome}, only that branch moves; \texttt{HEAD} normally identifies the branch we currently have checked out. When we switch back to \texttt{main}, the newly added paragraph disappears from the working file because the selected branch still refers to the earlier state. Switching back to \texttt{welcome} restores the paragraph from its commit. Nothing has been copied back and forth by hand: Git is using the branch references and recorded snapshots to present the selected version.
+
+    \item To integrate the finished greeting, we switch to the destination branch and run \texttt{git merge welcome}. If \texttt{main} has not advanced since \texttt{welcome} branched, Git can \emph{fast-forward}: it simply moves the \texttt{main} reference to the newer commit. When both lines have advanced, Git combines their changes, usually recording a merge commit; incompatible edits require us to resolve a conflict. The result should be reviewed because a successful automatic merge does not prove the combined program behaves correctly. Once its work is incorporated, the feature branch can be deleted without deleting the commits now reachable from \texttt{main}.
+
+    \item A conflict is easiest to picture when two collaborators independently rewrite the same welcome sentence. Git can identify the competing versions and the common starting point, yet it cannot know whether the site should use one wording, the other, or a revised sentence that combines both ideas. We edit the conflicted file to the desired result, stage that resolution, and finish the merge. If the collaborators changed separate files, the merge is more likely to complete automatically. In either case, the recorded history explains how the resulting state was reached, while review and testing address whether that state is actually good.
+
+    \item The repair tool depends on whether a mistake has entered history. If we accidentally delete a tracked style sheet but have not staged or committed that deletion, \texttt{git restore path/to/style.css} restores its indexed version to the working tree. It also discards other unstaged edits to that path, so we should inspect \texttt{git diff} first. If a deletion was committed and shared, \texttt{git revert <commit>} creates a new commit that reverses its effect while preserving the published history. This is safer for collaborators than rewriting a commit they may already have fetched. Untracked files have no committed version for ordinary \texttt{git restore} to recover, and GitHub cannot restore edits that were never committed and pushed.
+
+    \item There is an intermediate case between editing and committing: a change may already be staged but still be unwanted in the next snapshot. \texttt{git restore --staged path/to/file} removes it from the index while leaving the working file as edited. We can then revise it, stage it later, or discard its working-tree edit separately. By contrast, a committed deletion appears in \texttt{git log}; reverting that commit records the restoration as new history. The distinction matters because ``undo'' is not one operation in Git. We first identify whether the change is in the working tree, the index, a local commit, or a published commit.
+
+    \item GitHub adds a hosted \emph{remote} repository that others can access, review, and clone. A local repository is fully useful on its own; connecting it to a remote gives us a place to exchange commits and a second copy of the history we actually publish. We can create an empty GitHub repository, run \texttt{git remote add origin <url>}, and send our current \texttt{main} branch with \texttt{git push -u origin main}. Here \texttt{origin} is a conventional remote name, and \texttt{-u} records an upstream relationship for later pushes. If the new GitHub repository already contains a README commit, its history is not the same empty starting point; we should integrate that remote history before pushing rather than assume a simple first push will work.
+
+    \item Pushing transfers commits, not every file that happens to be open in an editor. An unstaged edit, a staged edit awaiting commit, and even a local commit that has not been pushed are absent from GitHub's copy. Conversely, \texttt{git fetch} obtains remote updates without integrating them into the current branch, while \texttt{git pull} fetches and then integrates according to the repository's chosen strategy. A teammate can \emph{clone} the hosted repository to get a local copy and contribute through the same edit--stage--commit cycle. GitHub makes distribution and collaboration convenient, but it does not replace checking what we commit, deciding what should be public, or resolving competing changes.
+
+    \item A GitHub repository can be public or private, and that choice governs who can see the hosted copy. It does not change the logic of a local commit: neither visibility setting uploads a working-tree edit by itself. A remote with its own README already has an initial commit, so a separately initialized local project may need to bring in that remote history before the first ordinary push succeeds. The alternative shown in the Desktop lesson is to create the repository on GitHub first and \emph{clone} it. In that order, the local copy begins with the remote's existing history and can build on it directly.
+\end{itemize}
+
+\section*{The same workflow in GitHub Desktop}
+
+\begin{itemize}[leftmargin=1.25em, itemsep=0.3em, parsep=0pt, topsep=0pt]
+    \item Coder Coder's Desktop tutorial starts by creating a GitHub repository and choosing its visibility. \emph{Public} makes the repository visible to everyone; \emph{private} restricts access to people we authorize. An optional README can introduce the project, a \texttt{.gitignore} can exclude appropriate untracked files, and a license states reuse terms. Adding a README while creating the repository also creates its first commit. Cloning that repository in GitHub Desktop then brings its committed files and history to a local folder, where an editor can change them. The labels and buttons differ from a terminal, yet the remote and local repositories remain distinct.
+
+    \item Desktop's Changes view corresponds to \texttt{git status} and the diff views: it shows modified and new files, with added and removed lines. We can select which files, and in the demonstrated case which lines, belong in the next commit. The commit message gives the chosen snapshot a useful explanation. After committing, the History view shows the new local commit, but GitHub's website still shows the old history until we \emph{push origin}. This separation lets us make several local commits before sharing them. The inverse direction matters too: fetching checks and downloads remote commits, while pulling incorporates them into our current local branch.
+
+    \item In the demonstration, a README edit and a newly created text file appear together in Changes. The presenter excludes the text file and one line of the README from the first commit, giving that commit a focused message. The omitted work stays local for a later decision. After the commit, History shows the new entry but the GitHub website still shows only its earlier initial commit; pushing origin closes that gap. This is the same separation we saw with \texttt{git add}, \texttt{git commit}, and \texttt{git push}, expressed through selected checkboxes and a history view rather than typed commands.
+
+    \item Desktop also makes the three recovery situations visible. \emph{Discard changes} removes an uncommitted working-tree edit; \emph{Undo} can return the newest unpushed commit's changes to the Changes view; and \emph{Revert changes in commit} adds a new inverse commit after a change has been published. We then push that revert so the remote receives the correction. In each interface, the question is the same: has this change merely been edited, committed locally, or shared with others? Choosing the answer first prevents a routine correction from silently losing work or disrupting a collaborator's history.
+
+    \item For example, if the test text file was committed locally by mistake but not pushed, Desktop's Undo returns it to the uncommitted Changes view so we can decide how to proceed. Once that commit has been pushed, another collaborator may already have it. Revert then records a new commit that removes the file while retaining the original addition in the shared history. The new commit itself must be pushed to appear on GitHub. Thus the graphical controls do not eliminate Git's history rules; they surface the appropriate operation at each stage of sharing.
+\end{itemize}
+
+\end{document}
